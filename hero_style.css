@@ -1,0 +1,294 @@
+  /* Hero section background image */
+  * {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+
+}
+.hero_section{
+  width: 100%;
+  height: 750px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+}
+.indicator{
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.footer_text > h6 {
+  font-weight: 300;
+}
+.arrow_down {
+  margin:auto;
+  width: 50px;
+  height: 50px;
+  padding: 8px;
+  border-radius: 50px;
+  color: #ffffff;
+  background: #9710cc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 10px #ccc;
+  transition: .4s ease linear;
+  position: absolute;
+  bottom: 20px;
+  animation: pointer .9s  infinite;
+}
+
+/* Annimation for arrow button */
+.arrow_down img{
+  transform: scale(0.8);
+  filter: invert(100%);
+  width: 30px;
+  height: 30px;
+}
+@keyframes pointer{
+  0% {
+    position: absolute;
+    bottom:20px;
+  }
+  100% {
+    position: absolute;
+    bottom:0px;
+  }
+}
+/* End of annimation */
+.arrow_down:hover{
+  
+  background-color: #dddddd; 
+}
+.arrow_down a:hover {
+  color: #9710cc
+}
+.hero_headline{
+  width: 1024px;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+
+/* Arrow up style */
+.down_indicator{
+  width: 95%;
+  height: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  position: sticky;
+  bottom: 0px;
+ 
+  z-index: 1;
+  
+
+}
+
+.arrow_up {
+  margin:auto;
+  width: 50px;
+  height: 50px;
+  padding: 8px;
+  border-radius: 50px;
+  color: #ffffff;
+  background: #9710cc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 10px #ccc;
+  transition: .4s ease linear;
+  position: absolute;
+  bottom: 20px;
+  animation: pointer .9s  infinite;
+ 
+}
+
+
+/* Annimation for arrow button */
+.arrow_up img{
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  display: flex;
+  transform: scale(0.8);
+  filter: invert(100%);
+  justify-content: center;
+  align-content: center;
+}
+@keyframes pointer{
+  0% {
+    position: absolute;
+    bottom:20px;
+  }
+  50% {
+    position: absolute;
+    bottom:0px;
+  }
+  
+}
+/* End of annimation */
+.arrow_up:hover{
+  color: #9710cc;
+  background-color: #dddddd; 
+}
+.arrow_up a:hover {
+  color: #9710cc
+}
+/* End of STYLE */
+.grid{
+  margin-top: 20px;
+}
+.grid {
+  width: 450px;
+  height: auto;
+}
+
+.grid_logo {
+  width: 750px;
+  height: 519px;
+  position: absolute;
+  right: 10px;
+  background-position: center;
+  background-size: 100%;
+  background-image:url(img/02.png);
+  background-repeat: no-repeat;
+}
+
+.grid .h1, .p {
+  font-family:roboto;
+  text-align: left;
+}
+
+.h1 {
+  font-size: 90px;
+  color: #480aad;
+  font-weight: 200;
+  margin-bottom: 30px;
+}
+.p {
+  font-size: 16px;
+  color: #333333;
+  font-weight: normal;
+  line-height: 25px;
+  text-align: justify;
+  margin-right: 20px;
+}
+.hero_button{
+  width: 400px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.h4 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-weight: bold;
+  font-size: 30px;
+  
+}
+.start{
+  width: 150px;
+  height: 50px;
+  padding: 8px;
+  border: 2px solid #9710cc;
+  color: #9710cc;
+  border-radius: 50px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 10px #ccc;
+  margin-bottom: 30px;
+  transition: .3s ease all;
+  cursor: pointer;
+}
+.sign{
+  width: 150px;
+  height: 50px;
+  padding: 8px;
+  border-radius: 50px;
+  color: #ffffff;
+  background: #9710cc;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: normal;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 10px #ccc;
+  margin-bottom: 30px;
+  transition: .3s ease all;
+  cursor: pointer;
+}
+/* End of Hero section */
+.sign:hover{
+  color: #9710cc;
+  background-color: #dddddd;
+}
+a{
+  text-decoration: none;
+  text-decoration-color: none;
+}
+.start:hover{
+  background: #9710cc;
+  color: #ffffff;
+}
+
+/* FOOTER ICONS */
+.logo_list{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+.social_icon{
+  width: 100%;
+  height: auto;
+  position: relative;
+
+}
+
+.list img {
+  height: 20px;
+  width: 20px;
+  color: #ffffff;
+  margin-right: 10px;
+  transform: scale(1);
+  filter: invert(100%);
+}
+
+.list img:hover{
+  filter: invert(50%);
+  transition: .3s ease linear;
+  cursor: pointer;
+} 
+
+.base {
+  color: #10cc39;
+}
+
+.delete:hover {
+  border: 2px solid rgb(204, 58, 58); 
+  background-color: #ffffff; 
+  color: #222;   
+}
+
+
+/* =============== END OF VIEW POST ================== */

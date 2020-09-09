@@ -1,0 +1,597 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+
+}
+
+body {
+    color: #505050;
+    font-family: roboto;
+    font-weight: normal;
+}
+
+.container {
+    width: 100%;
+    height: 70px;
+    box-shadow: 0px 0px 10px #ccc;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    background-color: #fff;
+}
+
+.nav_bar {
+    width: 1024px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content:space-between ;
+    margin: auto;
+    background-color: #fff;
+}
+.logo-color {
+    color: #9710cc;
+}
+
+
+.menu_list {
+    display: inline-block;
+    margin-right: 30px;
+}
+.menu_link {
+    text-decoration-line: none;
+    color: #000;
+   
+    
+}
+/* Error message container */
+.msg {
+    width: 300px;
+    height: auto;
+    margin: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 4px;
+    background: rgb(233, 158, 158);
+    color: rgb(218, 1, 1);
+}
+
+
+
+
+.menu_list:hover::after{
+    position: relative;
+    content: "";
+    width: 100%;
+    height: 5px;
+    background: #9710cc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    bottom: 0px;
+    top: 30px;
+    
+}
+
+
+
+.main {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top:50px;
+   
+}
+
+.main_post{
+    width: 1024px;
+    height: 550px;
+    box-shadow: 0px 0px 10px #ccc;
+    margin: auto;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    margin-top:50px;
+}
+/* headline */
+.topic h2{
+    text-align: left;
+    font-family: roboto;
+    font-weight: normal;
+    padding-left: 10px;
+    border-left: 6px solid #9710cc;
+   
+
+}
+.topic{
+    width: 1024px;
+    height: auto;
+    margin: auto;
+    display: flex;
+    margin-bottom: 40px;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.topic::before{
+    position: relative;
+    content: "";
+    width: 5px;
+    height: 100%;
+    background: #9710cc;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}   
+
+
+.post_image {
+    width: 512px;
+    height: 520px;
+    margin: 8px;
+    border-radius: 4px;
+    
+}
+.link_post{
+    text-decoration: none;
+    color: black;
+}
+
+/* all Images styled from database */
+.img {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    
+}
+/* set grid for 2x2 box arragement for image */
+.side_image{
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+    " auth_img author "
+    " auth_img date ";
+
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;    
+    width: 300px;
+    height: auto;
+    position: relative;
+    left: 0px;
+    padding: 0px;
+    padding: 7px;
+    
+}
+
+/* Assign back the grid areas to thier classes */
+
+.auth_img {
+    grid-area: auth_img;
+}
+
+.author{
+    grid-area: author;
+}
+
+.date {
+    grid-area: date;
+}
+
+
+.heading h3{
+    text-align: left;
+    font-family: roboto;
+    font-weight: normal;
+    margin: auto;
+    color: #333;
+    font-size: 14px;
+    margin-left: 0px;
+    
+}
+.auth_img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+   
+    position: relative;
+    left: 0px;
+    padding: 0px;
+}
+
+.heading {
+    width: 512px;
+    height: 320px;
+    margin: 8px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    display: block;
+    
+}
+h1, .side_image, p {
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    
+}
+.heading p {
+    font-size: 14px;
+}
+h1{
+    color:#9710cc;
+    font-weight: bold;
+}
+.footer {
+    width: 100%;
+    height: auto;
+    position: relative;
+    top:100px;
+    background: #222;
+}
+
+.footer_text {
+    width: 1024px;
+    height: 200px;
+    margin: auto;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    
+}
+.footer_text > h3  {
+    font-size: 24px;
+    font-weight: 400;
+    position: relative;
+    top:25%;
+    line-height: 20px;
+    margin-bottom: 25px;
+}
+.footer_text > h6 {
+    font-size: 16px;
+    font-weight: 200;
+    position: relative;
+    top:25%;
+    line-height: 20px;
+    margin-bottom: 25px;
+}
+.footer_text > .social_icon{
+    position: relative;
+    top:25%;
+    margin-bottom: 25px;
+}
+
+.cast {
+    color: lawngreen;
+}
+h6,  p{
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 20px;
+}
+/* This is the Add post section for Index.php page */
+
+.form_head {
+    width: 100%;
+    height: auto;
+    background-color: #fff;
+    position: relative;
+    top: 100px;
+    margin-bottom: 100px;
+}
+
+.form {
+    width: 400px;
+    height: auto;
+    margin: auto;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+    background: #fff;
+    padding: 20px;
+   
+}
+input[type="text"]  {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    outline: none;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+    background: #fff;
+    padding-left: 13px;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+
+label{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    resize: none;
+    text-align: left;
+    padding: 9px;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+    background: #fff;
+    margin-bottom: 20px;
+    font-size: 16px;
+    letter-spacing: 2px;
+    font-family: roboto;
+}
+input[type=file]{
+    display: none;
+}
+.image {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 40px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    background: #9710cc;
+    color: #fff;
+    font-size: 16px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+h4 {
+    font-family: roboto;
+    font-weight: normal;
+    margin-bottom: 9px;
+}
+.image:hover{
+    background: #fff;
+    color: #333333;
+    border: 3px solid #ccc;
+    cursor: pointer;
+    transition: .3s ease all;
+}
+.submit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   
+}
+.title::after{
+    position: relative;
+    top: 10px;
+    bottom: 20px;
+    content: "";
+    width: 100%;
+    height: 1px;
+    background: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}   
+
+
+.title {
+    font-family: roboto;
+    font-weight: normal;
+    margin-bottom: 40px;
+}
+input[type=reset], input[type=submit]{
+    width: 150px;
+    height: 40px;
+    margin-bottom: 20px;
+    outline: none;
+    border: none;
+    border-radius: 50px;
+    background: #0aa839;
+    color: #fff;
+    font-size: 16px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+input[type=reset]{
+    background: #434ffc;
+}
+
+ input[type=submit]:hover{
+    border:3px solid #0aa839;
+    color:#333;
+    background: #fff;
+    cursor: pointer;
+    transition: .3s ease;
+    outline: none;
+    box-shadow: 0px 0px 10px #ccc;
+}
+input[type=reset]:hover{
+    border: 3px solid#434ffc;
+    color:#333;
+    background: #fff;
+    cursor: pointer;
+    transition: .3s ease;
+    outline: none;
+    box-shadow: 0px 0px 10px #ccc;
+}
+
+/* View post botton */
+
+
+.read_more {
+    width: 110px;
+    height: 40px;
+    border: 2px solid #333;
+    color: #333;    
+    border-radius: 50px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    transition: .3s ease all;
+    outline: none;
+    
+}
+
+.read_more a {
+    text-decoration: none;
+    color: #333;
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.date {
+    font-size: 14px;
+    color:#ccc;
+}
+.read_more:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 10px #333;
+    outline: none;
+}
+
+/*Styling for Sub Post*/
+
+.sub_main {
+    width: 1024px;
+    height: auto;
+    position: relative;
+    top:10px;
+    margin: auto;
+    margin-bottom: 40px;
+}
+
+
+    
+.sub_head {
+    width: 100%;
+    height: auto;
+    display: flex;
+    box-shadow: 0px 0px 10px #ccc;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 10px;
+}
+.sub_head_2{
+    width: auto;
+    height: auto;
+    margin: auto;
+    display: flex;
+    box-shadow: 0px 0px 10px #ccc;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+.sub_main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100%;
+    grid-template-areas: 
+    "sub_head sub_head" ;
+    grid-column-gap: 8px;
+    grid-row-gap: 8px; 
+    position: relative;
+    left: 0px;
+    padding: 0px;
+    padding: 7px;
+}
+
+.sub_image {
+    display: grid;
+    grid-template-columns:50px 1fr;
+    grid-template-rows: 30px 1fr;
+    grid-template-areas: 
+    "auth_img author "
+    " auth_img body " ;
+    grid-column-gap: 8px;
+    grid-row-gap: 8px;
+    position: relative;
+    left: 0px;
+    padding: 0px;
+    
+}
+
+.auth_img {
+    background-size: cover;
+}
+
+/* ============ VIEW POST STYLE ============= */
+
+.view_post {
+    width: 1024px;
+    height: auto;
+    box-shadow: 0px 1px 4px #ddd;
+    margin: auto;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    margin-top:50px;
+    border: 0px;
+}
+
+.view_image {
+    width: 1020px;
+    border-radius: 3px;
+    margin: 10px;
+    height: 512px;
+    outline: none;
+    border: none;
+}
+
+.view_heading {
+    width: auto;
+    height: auto;
+    border: none;
+    padding: 0px 20px 0px 20px;
+    margin-top: 40px;
+}
+
+hr {
+    border: .5px solid #ccc;
+}
+
+.view_body {
+    width: auto;
+    height: auto;
+    margin-bottom: 40px;
+}
+
+.view_read_more{
+    display: inline-flex; 
+    margin-left: 50%;  
+
+}
+
+.delete{
+    width: 100px;
+    height: 40px;
+    border: none;
+    color: #ffffff;
+    font-weight: 200;    
+    font-size: 16px;
+    border-radius: 50px;
+    text-align: center;
+    transition: .3s ease all;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background:rgb(204, 58, 58); 
+
+  }
+  
+  .buttons {
+      width: auto;
+      height: auto;
+    margin-bottom:40px;
+  }
