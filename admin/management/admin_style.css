@@ -1,0 +1,126 @@
+ *{
+    margin: 0px;
+    padding: 0px;
+}
+html {
+    max-height:100%;
+} 
+body {
+    color: #505050;
+    font-family: roboto;
+    font-weight: normal;
+    transition: all .3s ease-in-out;
+    box-sizing: border-box;
+ 
+}
+.container{
+    height: auto;
+}
+.bar_icon{
+    transform: scale(0.07);
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid red;
+    position: relative;
+    right: 0px;
+    display: flex;
+    align-items: right;
+}
+
+.admin_list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    list-style: none;
+}
+
+.admin_header {
+    width: 100%; ;
+    height: auto;
+    box-shadow: none;
+    background: #9092db;
+    
+}
+.admin_items {
+    width: 100px;
+}
+.admin_nav {
+    width: 1024px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+    padding: 0px;
+
+}
+
+.admin_logo span{
+    color:black;
+}
+
+.admin_link {
+   
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+   
+}
+.bg_grid{
+    display:flex;
+    justify-content: stretch;
+    align-items: flex-start;
+
+}
+.sub_menu{
+    display: none;
+    list-style: none;
+}
+.sub_menu{
+    top: 20px;
+}
+.admin_item2:hover .sub_menu{
+    display: block;
+    width: auto;
+    padding: 20px;
+    background: #9710cc;
+    position: absolute;
+    top: 50px;
+    text-align: center;
+    cursor: pointer;
+} 
+
+a{
+     text-decoration: none;
+}
+.section{
+    width: 15%;
+    height: 400px;
+    margin-bottom: 0px;
+    padding: 20px;
+    background:#9710cc;
+    
+}
+
+.side_bar .side_item{
+    list-style: none;
+    margin-bottom: 25px;  
+}
+.side_bar a {
+    color: #fff;
+}
+.side_bar {
+    position: relative;
+    top: 20px;
+}
+
+/* THE WELCOME DASHBOARD */
+.admin_main {
+    width: 550px;
+    height:auto;
+    margin: 100px;
+    font-size: 25px;
+    text-align: center;
+}

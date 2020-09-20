@@ -2,7 +2,6 @@
 
 define('BASE_URL', 'http://localhost/POST_APP_BE/');
 define('ROOT_DIR', __DIR__);
-
 define('DB_HOST', 'localhost');
 define('DB_PASS', '');
 define('DB_NAME', 'blog');

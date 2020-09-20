@@ -1,118 +1,111 @@
 <?php
 
+
 require 'dbconn.php';
 
-//Write a query statement
-$sql = 'SELECT * FROM post ORDER BY id DESC';
+$title = "";
+$author = "";
+$body = "";
+$image = "";
 
-//query the database
-$result = mysqli_query($conn, $sql);
+$submit = isset($_POST['submit']);
+
+if ($submit) {
+
+    $title = $_POST['title'];
+    $author =  $_POST['author'];
+    $body =  $_POST['body'];
+
+    require 'config/function.php';
+ 
+}
 
 
 ?>
 
 <?php require 'header.php';?>
+                   
+    <!-- Form to add post -->
+    <div class="form_head">
+                        <?php
+                        
+                       
+                        if (!empty($_SESSION['Success_message']) ) {
+                            echo "<div class='msg_green' id='msg_green'>".$_SESSION['Success_message']."</div>";
+                        }    
 
-<div class="hero_section">
-    <div class="hero_headline bd_grid">
-        <div class="grid">
-            <h4 class="h4">Hi Welcome to</h4>
-            <h1 class="h1">Readit  Blog</h1>
-            <p class="p">Far far away, behind the word mountains, far 
-                from the countries Vokalia and Consonantia, 
-                there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the 
-                Semantics, a large language ocean.
-            </p>
-            <div class="hero_button">
-                <a href="#"><h3 class="start">Get Started</h3></a>
-                <a href="#"><h3 class="sign">Sign Up</h3></a>
-            </div>
+                        if (!empty($_SESSION['Error_message']) ) {
+                            echo "<div class='msg' id='msg'>".$_SESSION['Error_message']."</div>";
+                        }
+                        ?>
+                   
+
+        <div class="form">
+    <h1 class="title">Posts</h1>
+            <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" enctype="multipart/form-data">
+                <div class="group">
+                    <label for="title">Title</label>
+                    <input type="text"  name="title" id="title" >
+                      <?php
+                            if (!empty($_SESSION['post_title'])) {
+                                echo "<div class='msg'>".$_SESSION['post_title']."</div>";
+                            }
+                      ?>
+                </div>
+
+                <div class="group">
+                    <label for="author">Author of Post</label>
+                    <input type="text"  name="author" id="author" >
+                    <?php
+                            if (!empty($_SESSION['post_author'])) {
+                                echo "<div class='msg'>".$_SESSION['post_author']."</div>";
+                            }
+                      ?>
+                </div>
+
+                <div class="group">
+                    <label for="body">Body</label>
+                    <textarea name="body" id="body" placeholder="Write Post here" ></textarea>
+                    <?php
+                            if (!empty($_SESSION['post_body'])) {
+                                echo "<div class='msg'>".$_SESSION['post_body']."</div>";
+                            }
+                      ?>   
+                </div>
+
+                <div class="group-image">
+                    <h4>Add Image of Author/Related Article</h4>
+                    <label for="image"  class="image">Add Image</label>
+                   <input type="file" name="image" id="image" Value="Add Image" >
+                   <?php
+                            if (!empty($_SESSION['post_image'])) {
+                                echo "<div class='msg'>".$_SESSION['post_image']."</div>";
+                            }
+                      ?> 
+                </div> 
+
+                <div class="submit">
+
+                    <div class="group">
+                        <input type="submit" value="Save Post" name="submit">
+                    </div>
+
+                    <div class="group"> 
+                        <input type="reset" value="Clear Post">
+                    </div>
+
+                </div>
+              
+
+            </form>
+
         </div>
-        <div class="grid_logo"></div>
-        
-     
-    </div>
-    <div class="indicator">
-            <div class="arrow_down">
-                <a href="#footer"><img src="img/arrow-pointing-down.png"></a>
-            </div>
+  
     </div>
 </div>
 
-<!-- end of hero section -->
-    <div class="main">
-        <!-- Headline -->
-        <div class="topic">
-            <h2>Suggested Articles</h2>
-        </div>
-    
-    <!-- end of headline -->
-    
-        <?php  while ($row = mysqli_fetch_array($result)) { 
-             $id = $row['id'];
-             $title = $row['title'];
-             $author = $row['author'];
-             $date = convertDate($row['date_created']);
-                 $body = $row['body'];
-                 $body_len = substr($body,0,100);
-             $image = $row['image'];
-          ?>
-            <div class="main_post">
-            
-                <div class="post_image">
-                    <img src="<?php echo $image;?>" class="img">
-                </div>
-
-              <div class="heading">
-                        
-                        <h1><?php echo $title; ?></h1>
-                    <div class="side_image">
-                        <img src="<?php echo $image;?>" alt="" class="auth_img">
-                        <h3 class="author"><?php echo $author;?></h3>
-                        <h4 class="date"><?php echo $date;?></h4>
-                    </div>
-                    
-                        <p><?php echo $body_len."....";?></p>
-                        <h3 class="read_more">
-                            <a href="view_posts.php?id=<?php echo $id?>">View Post</a>
-                        </h3>
-                     
-                </div>
-            </div>
-        <?php };?> 
-
-        <div class="main">
-            <div class="topic">
-                <h2>Recent Articles</h2>
-            </div>
-                 <div class="sub_main">
-
-            <?php foreach ($result as $results) {
-                
-                $author = $row['author'];
-                    $body = $row['body'];
-                    $body_len = substr($body,0,200);
-                $image = $row['image'];
-                
-                ?>     
-                <div class="sub_head">
-            
-                      <div class="sub_image">
-                            <img src="<?php echo $image; ?>" alt="" class="auth_img">
-                        
-                            <h3 class="author"><?php echo $author;?></h3>
-                                
-                                <p><?php echo $body_len."....";?></p>
-                            
-                        </div>
-                </div>
-            <?php };?> 
-             
-            </div>
-        
-        </div>
-       
-        
-    </div>
-
     <?php require 'footer.php';?>
+
+  
+
+   
