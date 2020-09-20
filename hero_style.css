@@ -186,6 +186,11 @@
   text-align: justify;
   margin-right: 20px;
 }
+.reset {
+  font-weight: 400;
+  line-height: 17px;
+  text-align: center;
+}
 .hero_button{
   width: 400px;
   height: auto;
@@ -291,4 +296,39 @@ a{
 }
 
 
+
 /* =============== END OF VIEW POST ================== */
+
+
+/* PAGIANATION */
+.btn-primary {
+  color: #fff;
+  width: auto;
+  padding: 13px;
+  border-radius: 3px;
+  background: #480aad;
+  text-align: center;
+  font-weight: 700;
+  margin: 4px;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.pages{
+  height: auto;
+  width: 300px;
+  position: relative;
+  bottom: 0px;
+  top: 0px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  box-shadow: none;
+  background: none;
+  margin:auto;
+
+} 
+.btn-primary:hover{
+  color: #480aad;
+  background: #ffffff;
+  border: 1px solid #480aad;
+}
