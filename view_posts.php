@@ -23,6 +23,8 @@ if ($_GET['id']) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
+    echo "<script>alert('Are you sure you want to delete this post!');</script>";
+ 
     $delete_id = $_POST['delete_id'];
     
     
@@ -35,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $Smessage=$Emessage="";
       if ($result) {
-                header("Location: posts.php");
+                header("Location: index.php");
                 $Smessage = 'Message deleted';
                 
             }else {
@@ -80,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                        
                  <div class="buttons">
                         <h3 class="read_more view_read_more">
-                                <a href="posts.php">Back</a>
+                                <a href="index.php">Back</a>
                         </h3>
                         <h3 class="read_more view_read_more">
                                 <a href="edit_post.php?id=<?php echo $response['id'];?>">Edit Post</a>

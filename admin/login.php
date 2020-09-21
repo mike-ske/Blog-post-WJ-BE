@@ -82,13 +82,18 @@ while ($row = mysqli_fetch_assoc($result)) {
 if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adminId'] == 0 ) {
     $_SESSION['manage_user'] = 'User management';
     $_SESSION['Login_message'] = "You are loged in";
+    $_SESSION['Logout'] = "Logout"; 
+    $_SESSION['add_post'] = "Add Post";
     header("location: ../index.php");
    
  }else {
     $_SESSION['Login_message'] = "";
     $_SESSION['manage_user'] = "";
+  
+    $_SESSION['service'] = "Service";
+    
 }
-
+    
      if ($user !== $post_user && $pass !== $post_pass) {
 
         $_SESSION['Error_message'] = "Invalid Username or Password. Type a valid password or username";
@@ -158,7 +163,7 @@ if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adm
                 </div>
 
                 <div class="group_info">
-                    <h4 class="text_info"><a href="../posts.php" >Back </a> Don't have an account? <a href="create_account.php" >Sign Up</a></h4>
+                    <h4 class="text_info"><a href="../index.php" >Back </a> Don't have an account? <a href="create_account.php" >Sign Up</a></h4>
                 </div>
 
                 <div class="group_info">
@@ -197,30 +202,7 @@ if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adm
         </div>
     </div>
 
-<script src="/action.js"></script>
-
 </body>
-<script>
-        var body = document.getElementById('body');
-        var error_msg = document.getElementById('msg_green');
-        var error_msg_2 = document.getElementById('msg');
-            
-    // function display() {
-    //         error_msg.style.opacity =  0;
-    //         error_msg.style.display =  "none";
-    //         error_msg_2.style.opacity =  "none";
-      
-    // }
-        body.onclick = function () {
-            error_msg.style.opacity =  0;
-            error_msg.style.display =  "none";
-            error_msg_2.style.opacity =  "none";
-        }
-        body.onload = function () {
-            error_msg.style.opacity =  0;
-            error_msg.style.display =  "none";
-            error_msg_2.style.opacity =  "none";
-        }
-</script>
+
 </html>
 

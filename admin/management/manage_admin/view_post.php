@@ -1,13 +1,14 @@
 <?php
-
+// require "../config/config_dir.php";
 require '../dbconn.php';
-require '../config/function.php';
+require '../config/session.php';
+
 
 $user_id = $_SESSION['userId'];
-// require '../config/session.php';
 
 
-//     //Write a query statement
+$_SESSION['delete_message'] = "";
+//Write a query statement
  
     $query = "SELECT `title`, `author`, `userId`, `body`, `date_created`, `username`, `date_updated`,`image`, `author_image` FROM `post` INNER JOIN admin_account ON post.userId = admin_account.id WHERE post.userId = ". $user_id;
 
@@ -16,6 +17,32 @@ $user_id = $_SESSION['userId'];
     $result = mysqli_query($conn, $query) or die('Failed to fetch from database');
   
 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+        $delete_id = $_POST['delete_id'];
+        
+        
+            // Write a query statement
+            $sql = "DELETE FROM post WHERE id = ".$delete_id;
+    
+            //query the database
+            $result = mysqli_query($conn, $sql) or die('Failed to insert Into database');
+            //check if post is uploaded
+            
+          
+
+          if ($result) {
+                    header("Location: view_post.php");
+                    $_SESSION['delete_message'] = 'Message deleted';
+                    
+                }else {
+                    header("Location: view_post.php");
+                    $_SESSION['delete_message']  = 'Message Not deleted';
+                } 
+      
+        }
+ 
+    
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +80,7 @@ $user_id = $_SESSION['userId'];
                                 <a href="posts.php">Back</a>
                         </h3>
                         <h3 class="read_more view_read_more">
-                                <a href="edit_post.php?id=<?php echo $response['id'];?>">Edit Post</a>
+                                <a href="update_post.php?id=<?php echo $response['id'];?>">Edit Post</a>
                         </h3>
 
                            <!-- Create an hidden form to catch the present ID of this form -->
