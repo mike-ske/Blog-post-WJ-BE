@@ -1,7 +1,11 @@
 <?php
 
-define('BASE_URL', 'http://localhost/POST_APP_BE/');
+define('BASE_URL', 'http://localhosadmin/management/manage_user/t/POST_APP_BE/');
+define('USER_DIR', '');
+define('ADMIN_DIR', 'admin/management/manage_admin/');
+define('ROOT_FILE', __FILE__);
 define('ROOT_DIR', __DIR__);
+
 define('DB_HOST', 'localhost');
 define('DB_PASS', '');
 define('DB_NAME', 'blog');

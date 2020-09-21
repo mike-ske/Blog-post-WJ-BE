@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$user_id = $_SESSION['userId'];
+$user_id = isset($_SESSION['userId']);
 require 'dbconn.php';
 
 // ====== GET USER IMAGE FROM ACCOUNT TABLE =====

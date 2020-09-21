@@ -1,0 +1,38 @@
+/* SUBMENUS */
+.sub_menu_items{
+    display: none;
+}
+.sub_menu_items{
+    list-style: none;
+}
+.hover_logout:hover .sub_menu_items{
+    display: block;
+    width: auto;
+    padding: 20px;
+    height: auto;
+    box-sizing: border-box;
+    color: #333;
+    border: 1px solid #9710cc;
+    position: absolute; 
+    top: 70px;
+    z-index: 1;
+    background: #fff;
+    cursor: pointer;
+}
+.hover_logout:hover .sub_menu_link { 
+    font-size: 16px;
+    color: #333;
+    margin: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+ }
+ .name_green,.menu_link{
+   
+    height: 70px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+ 
+/* END OF SUBMENUS */

@@ -9,11 +9,11 @@
                         
                        
                         if (!empty($_SESSION['manage_admin']) ) {
-                            echo "<div class='msg_green' id='msg_green'><a href='admin/management/manage_admin/view_post.php?id={$user_id}' class='menu_link'>".$_SESSION['manage_admin']."</a></div>";
+                            echo "<div class='msg_green' id='msg_green'><a href='admin/management/manage_admin/view_post.php?id={$user_id}' >".$_SESSION['manage_admin']."</a></div>";
                         }    
 
                         if (!empty($_SESSION['manage_user'])) {
-                            echo "<div class='msg_green' id='msg_green'><a href='admin/management/manage_user/view_post.php?id={$user_id}' class='menu_link'>".$_SESSION['manage_user']."</a></div>";
+                            echo "<div class='msg_green' id='msg_green'><a href='admin/management/manage_users/view_post.php?id={$user_id}' >".$_SESSION['manage_user']."</a></div>";
                         }
                         ?>
                    
@@ -32,7 +32,7 @@
             <h6>  Copyright  &copy; 2020 Created by Alumona Micah DEV <span class="cast">@Think Soft</span></h6>
         </div>
     </div>
-    <script>
+    <!-- <script>
         var pointer = document.getElementById('arrow_up');
         var body = document.getElementById('body');
         var error_msg = document.getElementById('msg_green');
@@ -51,6 +51,6 @@
         }
        
     </script>
-    <script src="action.js"></script>
+     -->
 </body>
 </html>
