@@ -168,10 +168,13 @@ if ($login) {
                     VALUES('$fname','$lname','$email','$user','$pass', '$image_dir')
                     ";
         $result = mysqli_query($conn, $sql);
-        
-        $_SESSION['Account_message'] = "Account Created! Now Login";
-        header("location: login.php");
-        
+        if ($result) {
+            $_SESSION['Account_message'] = "Account Created! Now Login";
+            header("location: login.php");   
+        }else {
+            $_SESSION['Account_message'] = "";
+        }
+       
         }
     }
 // =========END OF VALIDATE INPUTS =========
