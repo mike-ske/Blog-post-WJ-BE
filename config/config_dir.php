@@ -9,6 +9,8 @@ define('ROOT_DIR', __DIR__);
 // define('DB_NAME', 'blog');
 // define('DB_USER', 'root');
 
+
+
 // ========== REMOTE DATABASE CONNECTION =======
 define('DB_HOST', 'remotemysql.com');
 define('DB_PASS', 'J9VTkhnk9a');

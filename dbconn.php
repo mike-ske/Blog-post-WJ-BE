@@ -6,6 +6,7 @@ $user = DB_USER;
 $pass = DB_PASS;
 $db = DB_NAME;
 
+
 $conn = mysqli_connect($host, $user, $pass, $db);
 
 ##check for connection
