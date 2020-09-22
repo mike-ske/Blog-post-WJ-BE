@@ -2,7 +2,7 @@
 
 define('BASE_URL', 'http://localhosadmin/management/manage_user/t/POST_APP_BE/');
 define('USER_DIR', '');
-define('ADMIN_DIR', 'admin/management/manage_admin/');
+define('ADMIN_DIR', 'admin/manage_admin/');
 define('ROOT_FILE', __FILE__);
 define('ROOT_DIR', __DIR__);
 
