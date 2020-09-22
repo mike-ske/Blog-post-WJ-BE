@@ -10,7 +10,7 @@ define('ROOT_DIR', __DIR__);
 // define('DB_USER', 'root');
 
 // ========== REMOTE DATABASE CONNECTION =======
-define('DB_HOST', ' remotemysql.com');
+define('DB_HOST', 'remotemysql.com');
 define('DB_PASS', 'J9VTkhnk9a');
 define('DB_NAME', 'H4pOhLh2Dl');
 define('DB_USER', 'H4pOhLh2Dl');
