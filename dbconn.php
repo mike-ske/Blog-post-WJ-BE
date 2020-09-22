@@ -14,7 +14,7 @@ if ($conn) {
     echo '';
 }else {
     
-    die('Failed to connect to database');
+    die('Failed to connect to database'.mysqli_error($conn));
 } 
 
 ?>
