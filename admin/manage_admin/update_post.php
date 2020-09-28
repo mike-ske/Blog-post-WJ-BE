@@ -1,9 +1,26 @@
 <?php
-require '../../../dbconn.php';
+require '../../dbconn.php';
 session_start();
 
 
+if (!empty($_GET['id'])) {
 
+    $id = mysqli_real_escape_string($conn, $_GET['id']);
+        //Write a query statement
+
+        $query = "SELECT * FROM post WHERE id = {$id}";
+
+        //query the database
+        $result = mysqli_query($conn, $query) or die('Failed to insert to Database! '. mysqli_error($conn));
+        //check if post is uploaded
+        $results = mysqli_fetch_assoc($result);
+        
+        $id = $results['id'];
+        $title = $results['title'];
+        $author =  $results['author'];
+        $body = $results['body'];
+        $image = $results['image'];
+}  
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -39,32 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }else {
                     header("Location: edit_post.php");
                     echo "ERROR: " . mysqli_error($conn);
-                } 
-      
+                }     
 }
-   
-if (!empty($_GET['id'])) {
-
-    $id = mysqli_real_escape_string($conn, $_GET['id']);
-        //Write a query statement
-
-        $query = "SELECT * FROM post WHERE id = {$id}";
-
-        //query the database
-        $result = mysqli_query($conn, $query) or die('Failed to insert to Database! '. mysqli_error($conn));
-        //check if post is uploaded
-        $results = mysqli_fetch_assoc($result);
-        
-        $id = $results['id'];
-        $title = $results['title'];
-        $author =  $results['author'];
-        $body = $results['body'];
-        $image = $results['image'];
-}  
 
 
 ?>
-<?php require '../../../header.php';?>
+<?php require '../../header.php';?>
 
 <!-- Form to add post -->
 <div class="form_head">
@@ -121,4 +118,4 @@ if (!empty($_GET['id'])) {
 </div>
 </div>
 
-<?php require '../../../footer.php';?>
+<?php require '../../footer.php';?>
