@@ -24,7 +24,14 @@
                 <ul class="menu_items">
                     <li class="menu_list"><a href="index.php" class="active menu_link">Home</a> </li>
                     <li class="menu_list"><a href="#" class="active menu_link">Service</a></li>
-                    <li class="menu_list"><a href="posts.php" class="active menu_link">Add Post</a></li>
+                    <li class="menu_list">
+                        <?php
+                            if (!empty($_SESSION['add_post']) ) {
+                                echo "<div id='name_green'><a href='posts.php' class='active menu_link'>".$_SESSION['add_post'] ."</a></div>";
+                            }  
+
+                        ?>
+                    </li>
                     <li class="menu_list"> <a href="admin/login.php" class="menu_link">Get Creative</a></li>
                     <li class="menu_list hover_logout"> 
                         <?php
@@ -37,11 +44,26 @@
                             <?php
                                 if (!empty($_SESSION['Logout'])) {
                                   
-                                    echo "<li class='sub_menu_list'><a href='admin/logout.php?id=1' class='sub_menu_link'>".$_SESSION['Logout']."</a></li>";
+                                    echo "<li class='sub_menu_list'><a href='admin/logout.php?id={$user_id}' class='sub_menu_link'>".$_SESSION['Logout']."</a></li>";
                                 }  
 
                             ?>
      
+                            <?php
+                                if (!empty($_SESSION['manage_user'])) {
+                                  
+                                    echo "<li class='sub_menu_list'><a href='admin/manage_users/control.php?userId={$user_id}' class='sub_menu_link'>".$_SESSION['manage_user']."</a></li>";
+                                }  
+
+                            ?>
+
+                            <?php
+                                if (!empty($_SESSION['manage_admin'])) {
+                                  
+                                    echo "<li class='sub_menu_list'><a href='admin/manage_admin/view_post.php?id={$user_id}' class='sub_menu_link'>".$_SESSION['manage_admin']."</a></li>";
+                                }  
+
+                            ?>
                         </ul>
                     </li>
                 </ul>
@@ -49,12 +71,7 @@
         </div>
     </div>
   
-    <?php
-     if (!empty($_SESSION['Login_message']) ) {
-        echo "<div class='msg_green wide' id='msg_green'>".$_SESSION['Login_message']."</div>";
-    }  
-
-    ?>
+ 
     
 
   

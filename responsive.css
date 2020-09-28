@@ -8,31 +8,38 @@
 .hover_logout:hover .sub_menu_items{
     display: block;
     width: auto;
-    padding: 20px;
     height: auto;
     box-sizing: border-box;
-    color: #333;
+    color: #222;
     border: 1px solid #9710cc;
     position: absolute; 
     top: 70px;
     z-index: 1;
     background: #fff;
     cursor: pointer;
+    /* text-align: left; */
 }
 .hover_logout:hover .sub_menu_link { 
     font-size: 16px;
-    color: #333;
-    margin: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
+    color: #222;
+    padding: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    position: relative;
+   
  }
  .name_green,.menu_link{
-   
     height: 70px;
     position: relative;
     display: flex;
+    
     justify-content: center;
     align-items: center;
  }
- 
+ .sub_menu_list {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    
+ }
+
 /* END OF SUBMENUS */

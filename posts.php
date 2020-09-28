@@ -7,6 +7,7 @@ $title = "";
 $author = "";
 $body = "";
 $image = "";
+$user_image = "";
 
 $submit = isset($_POST['submit']);
 
@@ -15,11 +16,11 @@ if ($submit) {
     $title = $_POST['title'];
     $author =  $_POST['author'];
     $body =  $_POST['body'];
-
+    
     require 'config/function.php';
- 
-}
 
+
+}
 
 ?>
 
@@ -37,6 +38,11 @@ if ($submit) {
                         if (!empty($_SESSION['Error_message']) ) {
                             echo "<div class='msg' id='msg'>".$_SESSION['Error_message']."</div>";
                         }
+                        if (isset($_SESSION['Error_message']) && isset($_SESSION['Success_message'])) {
+                            unset($_SESSION['Success_message']);
+                            unset($_SESSION['Error_message']);
+                        }
+                        
                         ?>
                    
 
@@ -74,7 +80,7 @@ if ($submit) {
                 </div>
 
                 <div class="group-image">
-                    <h4>Add Image of Author/Related Article</h4>
+                    <h4>Add Image Related Article</h4>
                     <label for="image"  class="image">Add Image</label>
                    <input type="file" name="image" id="image" Value="Add Image" >
                    <?php
@@ -82,6 +88,18 @@ if ($submit) {
                                 echo "<div class='msg'>".$_SESSION['post_image']."</div>";
                             }
                       ?> 
+                </div> 
+
+              
+                <div class="group-image">
+                    <h4>Image of Author</h4>
+                    <label for="userImage"  class="image">Add Author Image</label>
+                   <input type="file" name="userImage" id="userImage" Value="Add Author Image" />
+                        <?php
+                            if (!empty($_SESSION['auth_image'])) {
+                                echo "<div class='msg'>".$_SESSION['auth_image']."</div>";
+                            }
+                        ?> 
                 </div> 
 
                 <div class="submit">

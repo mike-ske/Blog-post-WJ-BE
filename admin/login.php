@@ -69,11 +69,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 // ======== PAGES ADMIN ================
      if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adminId'] == 1 ) {
-        
+        $_SESSION['add_post'] = "Add Post";
         $_SESSION['manage_admin'] = 'Admin management';
         $_SESSION['Login_message'] = "You are loged in";
         header("location: ../index.php");
      }else {
+        unset($_SESSION['Login_message']);
         $_SESSION['Login_message'] = "";
         $_SESSION['manage_admin'] = "";
     }
@@ -89,7 +90,7 @@ if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adm
  }else {
     $_SESSION['Login_message'] = "";
     $_SESSION['manage_user'] = "";
-  
+    $_SESSION['add_post'] = "";
     $_SESSION['service'] = "Service";
     
 }
@@ -112,7 +113,7 @@ if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adm
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -121,13 +122,13 @@ if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adm
     <link rel="stylesheet" href="../hero_style.css">
 
 </head>
-<body onload="display()">
+<body onload="display()" id="body">
     
-<div class="form_head">
+<div class="form_head" >
                         <?php
                           if (!empty($_SESSION['Account_message']) ) {
-                            echo "<div class='msg_green' id='msg_green'>".$_SESSION['Account_message']."</div>";
-                        }  
+                            echo "<div class='msg_green' id='msg_green'><div id='exit'>".$_SESSION['Account_message']."</div></div>";
+                        }
 
                         if (!empty($_SESSION['Success_message']) ) {
                             echo "<div class='msg_green' id='msg_green'>".$_SESSION['Success_message']."</div>";
@@ -203,6 +204,6 @@ if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adm
     </div>
 
 </body>
-
+   
 </html>
 

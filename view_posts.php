@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         
                         <h1 class="view_h1"><?php echo $response['title']; ?></h1><hr>
                     <div class="side_image view_side_image">
-                        <img src="<?php echo $response['image'];?>" alt="" class="auth_img">
+                        <img src="<?php echo $response['author_image'];?>" alt="" class="auth_img">
                         <h3 class="author view_author"><?php echo $response['author'];?></h3>
                         <h4 class="date view_date"><?php echo convertDate($response['date_created']);?></h4>
                     </div>

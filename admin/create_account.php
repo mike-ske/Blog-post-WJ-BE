@@ -1,5 +1,6 @@
-
-<?php 
+<?php require '../dbconn.php';?>
+<?php require '../config/session.php';?>
+<?php
 $image = "";
 $fname = "";
 $lname = "";
@@ -7,15 +8,23 @@ $email = "";
 $user = "";
 $pass = "";
 
-?>
 
+// ==== CHECK FOR EXISTING ACCOUNTS ======
+$query = "SELECT * FROM admin_account" ;
 
-<?php require '../dbconn.php';?>
-<?php require '../config/session.php';?>
-<?php
+//query the database
+$acct_result = mysqli_query($conn, $query) or die('Failed to fetch from database');
+//check if post is uploaded
+
+$acct_response = mysqli_fetch_assoc($acct_result);
+$acc_fname = $acct_response['fname'];
+$acc_lname = $acct_response['lname'];
+$acc_email = $acct_response['email'];
+$acc_pass = $acct_response['password'];
+$acc_user = $acct_response['username'];
+
 
 $login = isset($_POST['signup']);
-
 
 if ($login) {
         
@@ -29,11 +38,11 @@ if ($login) {
     $pass = mysqli_real_escape_string($conn,$_POST['password']);
 
     
-    
+
 // =========VALIDATE INPUTS =========
 
 //validate fisrt name and last name
-    if (!isset($fname) || !isset($lname) ) {
+    if (empty($fname) || empty($lname) ) {
         $_SESSION['Error_name'] = "Please add Fisrt name and Last name";
         
     }else {
@@ -48,6 +57,19 @@ if ($login) {
     else {
         $_SESSION['Error_name'] = "Only letters allowed";
         
+    }
+    if ($fname === $acc_fname) {
+        $_SESSION['Error_fname'] = "First name already exist! Add a different name";
+        
+    }else{
+        $_SESSION['Error_fname'] = "";
+    }
+
+    if ($lname === $acc_lname) {
+        $_SESSION['Error_lname'] = "Last name already exist! Add a different name";
+
+    }else {
+        $_SESSION['Error_lname'] = "";
     }
 
 //Validate username and password
@@ -66,6 +88,13 @@ if ($login) {
     else {
         $_SESSION['Error_username'] = "Only letters and numbers allowed";
     }
+
+    if ($user === $acc_user) {
+        $_SESSION['Error_username'] = "Username already exist! Add a different username";
+        
+    }else {
+        $_SESSION['Error_username'] = "";
+    }
 //validate email input fields
     if (empty($email) ) {
         $_SESSION['Error_email'] = "Please add Email Address";
@@ -79,10 +108,25 @@ if ($login) {
     }else {
         
         $_SESSION['Error_email'] = "";
+
+    }
+
+    if ($email === $acc_email) {
+        $_SESSION['Error_email'] = "Email already exist! Add a different username";
+        
+    }else {
+        $_SESSION['Error_email'] = "";
     }
 //validate pass input fields
     if (empty($pass) ) {
         $_SESSION['Error_password'] = "Please add password";
+        
+    }else {
+        $_SESSION['Error_password'] = "";
+    }
+
+    if ($pass === $acc_pass) {
+        $_SESSION['Error_password'] = "Password already exist! Add a different password";
         
     }else {
         $_SESSION['Error_password'] = "";
@@ -106,75 +150,24 @@ if ($login) {
         $_SESSION['Error_username'] = "Username must be upto 8-digit";
     }
     
-    // ============ VALIDATE IMAGE =================
-
-   
-    if (isset($_FILES)) {
-   
-    // $image = "";
-    $image = isset($_POST['image']);
-     // Get image name
-     $filename = $_FILES['image']['name'];
-     
-     // Get image size
-     $filesize = $_FILES['image']['size'];
-   
-     //Get image type
-      $filetype = $_FILES['image']['type'];
-    
-      //Get image tmp_path
-      $filepath = $_FILES['image']['tmp_name'];
-    
-     //Get image extension
-    $image_ext = pathinfo($filename, PATHINFO_EXTENSION);
-    
-     $image_format = array('jpg', 'png', 'gif', 'jpeg', 'bmp');
-    
-
-      if (empty($filename)) {
-       $_SESSION['post_image'] = "Must add image";
-
-      }
-      //Check for image type jpg, png, gif,  
-        else if (!in_array($image_ext, $image_format)) {
-        $_SESSION['post_image'] = "Not a valid file format e.g Accepts only jpg, jpeg, bmp and png";
-   
-     }else {
-      $_SESSION['post_image'] = "";
-    }
-   // End of  validation
-   
-       $name = basename($_FILES['image']['name']);
-       $tpname = $_FILES['image']['tmp_name'];
-       $upload_dir = 'user_image/';
- 
-       //Store the image path to upload to database
-       $image_dir = $upload_dir.$name;
-   
-       //Now upload image to folder first
-       $uploaded = move_uploaded_file($tpname, $image_dir);
-
-   } 
- // ================== END OF IMAGE ===========
-    if ($uploaded) 
-    {
-        if (empty($fname) || empty($lname) || empty($email) || empty($user) || empty($pass)) {
+    // ============ VALIDATE FORM =================
+        if (empty($fname) || empty($lname) || empty($email) || empty($user) || empty($pass) ) 
+        {
             
             $_SESSION['Error_message'] = "Submition Failed! Please Check all fields. Must insert data into all fields";
-    }else{
-        //query the database
-        $pass = password_hash($pass, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO admin_account(`fname`,`lname`,`email`,`username`,`password`, `user_image`)
-                    VALUES('$fname','$lname','$email','$user','$pass', '$image_dir')
-                    ";
-        $result = mysqli_query($conn, $sql);
-            $_SESSION['Account_message'] = "Account Created! Now Login";
-            header("location: login.php");   
-
-        }else {
-                $_SESSION['Account_message'] = "";
         }
-    }
+        else
+        {
+            //query the database
+            $pass = password_hash($pass, PASSWORD_DEFAULT);
+            $sql = "INSERT INTO admin_account(`fname`,`lname`,`email`,`username`,`password`)
+                        VALUES('$fname','$lname','$email','$user','$pass')
+                        ";
+            $result = mysqli_query($conn, $sql);       
+            header("location: login.php"); 
+            
+         }
+   
 // =========END OF VALIDATE INPUTS =========
 }
 
@@ -199,9 +192,12 @@ if ($login) {
                         if (!empty($_SESSION['Error_message']) ) {
                             echo "<div class='msg' id='msg'>".$_SESSION['Error_message']."</div>";
                         }
-                        ?>
-                   
 
+                        if (!empty($_SESSION['acct_exist']) ) {
+                            echo "<div class='msg' id='msg'>".$_SESSION['acct_exist']."</div>";
+                        }
+                        ?>
+              
         <div class="form">
             <h1 class="title">Create account</h1>
             <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" enctype="multipart/form-data">
@@ -213,6 +209,9 @@ if ($login) {
                             if (!empty($_SESSION['Error_name'])) {
                                 echo "<div class='msg'>".$_SESSION['Error_name']."</div>";
                             }
+                            if (!empty($_SESSION['Error_fname'])) {
+                                echo "<div class='msg'>".$_SESSION['Error_fname']."</div>";
+                            }
                       ?>
                 </div>
 
@@ -222,6 +221,9 @@ if ($login) {
                       <?php
                             if (!empty($_SESSION['Error_name'])) {
                                 echo "<div class='msg'>".$_SESSION['Error_name']."</div>";
+                            }
+                            if (!empty($_SESSION['Error_lname'])) {
+                                echo "<div class='msg'>".$_SESSION['Error_lname']."</div>";
                             }
                       ?>
                 </div>
@@ -257,18 +259,7 @@ if ($login) {
                 </div>
 
                 <!-- USER PASSPORT -->
-                <div class="group-image">
-                    <h4>Add User Image</h4>
-                    <label for="image"  class="image">Passport Image</label>
-                   <input type="file" name="image" id="image" Value="Add Image" />
-                        <?php
-                            if (!empty($_SESSION['post_image'])) {
-                                echo "<div class='msg'>".$_SESSION['post_image']."</div>";
-                            }
-                        ?> 
-                </div> 
-                        
-
+              
                 <div class="group_info">
                     <h4 class="text_info">Already have an account? <a href="login.php" >Sign In</a></h4>
                 </div>

@@ -1,18 +1,9 @@
 <?php
-session_start();
 
-$user_id = isset($_SESSION['userId']);
+session_start();
 require 'dbconn.php';
 
-// ====== GET USER IMAGE FROM ACCOUNT TABLE =====
-$sql = "SELECT `user_image` FROM admin_account";
-$admin_qry = mysqli_query($conn, $sql) or die('Failed to insert to Database! '. mysqli_error($conn));;
-
-while ($admin_result = mysqli_fetch_assoc($admin_qry)) {
-    $_SESSION['author_image'] = $admin_result['user_image'];
-    $image_ad = $_SESSION['author_image'];
-    
-}
+$user_id = isset($_SESSION['userId']);
 
 // ====== GET USER IMAGE FROM ACCOUNT TABLE =====
 
@@ -33,11 +24,33 @@ $sql = "SELECT * FROM post ORDER BY id  DESC LIMIT  $start_from,$row_per_page";
 //query the database
 $pg_result = mysqli_query($conn, $sql);
 
+
 ?>
 
 <?php require 'header.php';?>
 
 <div class="hero_section">
+
+                        <?php
+                        
+                        if (!empty($_SESSION['Login_message']) ) {
+                            echo "<div class='msg_green wide' id='msg_green'>".$_SESSION['Login_message']."</div>";
+                        }
+                        if (isset($_SESSION['Login_message']) ) {
+                            unset($_SESSION['Login_message']);
+                        }
+
+                        if (!empty($_SESSION['must_add']) ) {
+                            echo "<div class='msg wide' id='msg_green'>".$_SESSION['must_add']."</div>";
+                        
+                        }
+                        if (isset($_SESSION['must_add']) ) {
+                            unset($_SESSION['must_add']);
+                        }
+
+                        
+                        ?>
+
     <div class="hero_headline bd_grid">
         <div class="grid">
             <h4 class="h4">Hi Welcome to</h4>
@@ -67,9 +80,17 @@ $pg_result = mysqli_query($conn, $sql);
 
 <!-- end of hero section -->
     <div class="main">
+                                   
         <!-- Headline -->
         <div class="topic">
             <h2 id="topic">Suggested Articles</h2>
+                <?php
+                
+                if (!empty($_SESSION['no_post']) ) {
+                    echo "<div style='font-weight:bold;position: absolute;top: 45px;font-size: 20px;font-style: italic;' class='error'>".$_SESSION['no_post']."</div>";
+                }  
+
+                ?>
         </div>
     
     <!-- end of headline -->
@@ -78,15 +99,25 @@ $pg_result = mysqli_query($conn, $sql);
         $sql = "SELECT * FROM post ORDER BY post.id DESC LIMIT 0,5";
 
         $result = mysqli_query($conn, $sql);
+
+            $num_rows = mysqli_num_rows($result);
+            if ($num_rows <= 0) {
+                $_SESSION['no_post'] = "No Post Yet! Sign Up to add Post";
+                
+            }else if ($num_rows > 0){
+                $_SESSION['no_post'] = "";
+            }
+
         while ($row = mysqli_fetch_array($result) ){ 
              $id = $row['id'];
              $title = $row['title'];
-             $author_image = $row['author_image'];
+             
              $author = $row['author'];
              $date = convertDate($row['date_created']);
                  $body = $row['body'];
                  $body_len = substr($body,0,200);
              $image = $row['image'];
+             $auth_image = $_SESSION['auth_image']= $row['author_image'];
           ?>
             <div class="main_post">
             
@@ -98,7 +129,7 @@ $pg_result = mysqli_query($conn, $sql);
                         
                         <h1><?php echo $title; ?></h1>
                     <div class="side_image">
-                        <img src="<?php echo $author_image;?>" class="auth_img">
+                        <img src="<?php echo $auth_image;?>" class="auth_img">
                         <h3 class="author"><?php echo $author;?></h3>
                         <h4 class="date"><?php echo $date;?></h4>
                     </div>
@@ -125,13 +156,13 @@ $pg_result = mysqli_query($conn, $sql);
                             $pg_author = $results['author'];
                                 $pg_body = $results['body'];
                                 $pg_body_len = substr($pg_body,0,100);
-                            $pg_image = $results['image'];
+                            $pg_image = $results['author_image'];
                             
                         ?>     
                             <div class="sub_head">
                                 <a href="view_posts.php?id=<?php echo $id?>" style="text-decoration:none;color:#333;">
                                     <div class="sub_image">
-                                        <img src="<?php echo $author_image; ?>" alt="" class="auth_img">
+                                        <img src="<?php echo $pg_image; ?>" class="auth_img">
                                     
                                         <h3 class="author"><?php echo $pg_author;?></h3>
                                             
@@ -143,38 +174,37 @@ $pg_result = mysqli_query($conn, $sql);
                             <?php };?> 
                    
                     </div>
-                            <div class=" pages">
-                            <?php
-
-                                $qr_sql = "SELECT * FROM post";
-                                $qr_result = mysqli_query($conn, $qr_sql);
-                                $total_rows = mysqli_num_rows($qr_result);
-
-                                $total_pages = ceil($total_rows/$row_per_page);
-
-                                if ($page > 1) {
-
-                                    echo '<a href="posts.php?id='.($page-1).'"  class="btn-primary">Previous</a>';
-                                }
-
-                                for ($i=1; $i < $total_pages; $i++) 
-                                { 
-
-                                    echo '<a href="posts.php?id='.$i.'"  class="btn-primary">'.$i.'</a>';
-                                }
-
-                                if ($i > $page) {
-
-                                    echo '<a href="posts.php?id='.($page+1).'"  class="btn-primary">Next</a>';
-                                }
-
                                 
-                                ?>
-                                </div>
-        
                 </div>
                           
        </div>
                                
  
     <?php require 'footer.php';?>
+
+<?php
+
+// $qr_sql = "SELECT * FROM post";
+// $qr_result = mysqli_query($conn, $qr_sql);
+// $total_rows = mysqli_num_rows($qr_result);
+
+// $total_pages = ceil($total_rows/$row_per_page);
+
+// if ($page > 1) {
+
+//     echo '<a href="posts.php?id='.($page-1).'"  class="btn-primary">Previous</a>';
+// }
+
+// for ($i=1; $i < $total_pages; $i++) 
+// { 
+
+//     echo '<a href="posts.php?id='.$i.'"  class="btn-primary">'.$i.'</a>';
+// }
+
+// if ($i > $page) {
+
+//     echo '<a href="posts.php?id='.($page+1).'"  class="btn-primary">Next</a>';
+// }
+
+
+?>
