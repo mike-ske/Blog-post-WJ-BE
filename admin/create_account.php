@@ -151,10 +151,10 @@ if ($login) {
     }
     
     // ============ VALIDATE FORM =================
-        if (empty($fname) || empty($lname) || empty($email) || empty($user) || empty($pass) ) {
+        if (empty($fname) || empty($lname) || empty($email) || empty($user) || empty($pass) ) 
+        {
             
             $_SESSION['Error_message'] = "Submition Failed! Please Check all fields. Must insert data into all fields";
-        
         }
         else
         {
