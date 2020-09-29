@@ -16,15 +16,15 @@ $query = "SELECT * FROM admin_account";
 $acct_result = mysqli_query($conn, $query) or die('Failed to fetch from database');
 //check if post is uploaded
 
-// while ($acct_response = mysqli_fetch_assoc($acct_result)) {
-//     $acc_fname = $acct_response['fname'];
-//     $acc_lname = $acct_response['lname'];
-//     $acc_email = $acct_response['email'];
-//     $acc_user = $acct_response['username'];
-//     $acc_pass = $acct_response['password'];
+while ($acct_response = mysqli_fetch_assoc($acct_result)) {
+    $acc_fname = $acct_response['fname'];
+    $acc_lname = $acct_response['lname'];
+    $acc_email = $acct_response['email'];
+    $acc_user = $acct_response['username'];
+    $acc_pass = $acct_response['password'];
 
    
-// } 
+} 
 
 
 $login = isset($_POST['signup']);
