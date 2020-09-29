@@ -10,18 +10,21 @@ $pass = "";
 
 
 // ==== CHECK FOR EXISTING ACCOUNTS ======
-$query = "SELECT * FROM admin_account" ;
+$query = "SELECT * FROM admin_account";
 
 //query the database
 $acct_result = mysqli_query($conn, $query) or die('Failed to fetch from database');
 //check if post is uploaded
 
-$acct_response = mysqli_fetch_assoc($acct_result);
-$acc_fname = $acct_response['fname'];
-$acc_lname = $acct_response['lname'];
-$acc_email = $acct_response['email'];
-$acc_pass = $acct_response['password'];
-$acc_user = $acct_response['username'];
+// while ($acct_response = mysqli_fetch_assoc($acct_result)) {
+//     $acc_fname = $acct_response['fname'];
+//     $acc_lname = $acct_response['lname'];
+//     $acc_email = $acct_response['email'];
+//     $acc_user = $acct_response['username'];
+//     $acc_pass = $acct_response['password'];
+
+   
+// } 
 
 
 $login = isset($_POST['signup']);
@@ -40,98 +43,104 @@ if ($login) {
     
 
 // =========VALIDATE INPUTS =========
-
+while ($acct_response = mysqli_fetch_assoc($acct_result)) {
+    $acc_fname = $acct_response['fname'];
+    $acc_lname = $acct_response['lname'];
+    $acc_email = $acct_response['email'];
+    $acc_user = $acct_response['username'];
+    $acc_pass = $acct_response['password'];
 //validate fisrt name and last name
-    if (empty($fname) || empty($lname) ) {
-        $_SESSION['Error_name'] = "Please add Fisrt name and Last name";
-        
-    }else {
-        $_SESSION['Error_name'] = "";
-    }
+        if (empty($fname) || empty($lname) ) {
+            $_SESSION['Error_name'] = "Please add Fisrt name and Last name";
+            
+        }else {
+            $_SESSION['Error_name'] = "";
+        }
 
-    $patterns = "/^[a-zA-Z0-9\,\(\)\n]*$/";
-    if (isset($fname) &&  isset($lname)  && preg_match($patterns, $lname) && preg_match($patterns, $fname)) {
-        
-        $_SESSION['Error_name'] = "";
-    }
-    else {
-        $_SESSION['Error_name'] = "Only letters allowed";
-        
-    }
-    if ($fname === $acc_fname) {
-        $_SESSION['Error_fname'] = "First name already exist! Add a different name";
-        
-    }else{
-        $_SESSION['Error_fname'] = "";
-    }
+        $patterns = "/^[a-zA-Z0-9\,\(\)\n]*$/";
+        if (isset($fname) &&  isset($lname)  && preg_match($patterns, $lname) && preg_match($patterns, $fname)) {
+            
+            $_SESSION['Error_name'] = "";
+        }
+        else {
+            $_SESSION['Error_name'] = "Only letters allowed";
+            
+        }
+        if ($fname === $acc_fname) {
+            $_SESSION['Error_fname'] = "First name already exist! Add a different name";
+            
+        }else{
+            $_SESSION['Error_fname'] = "";
+        }
 
-    if ($lname === $acc_lname) {
-        $_SESSION['Error_lname'] = "Last name already exist! Add a different name";
+        if ($lname === $acc_lname) {
+            $_SESSION['Error_lname'] = "Last name already exist! Add a different name";
 
-    }else {
-        $_SESSION['Error_lname'] = "";
-    }
+        }else {
+            $_SESSION['Error_lname'] = "";
+        }
 
-//Validate username and password
-    if (empty($username) ) {
-        $_SESSION['Error_username'] = "Please add Username";
-    }else {
-        $_SESSION['Error_username'] = "";
-    }
+    //Validate username and password
+        if (empty($username) ) {
+            $_SESSION['Error_username'] = "Please add Username";
+        }else {
+            $_SESSION['Error_username'] = "";
+        }
 
-    $patterns = "/^[a-zA-Z0-9\,\(\)\n]*$/";
-   if (isset($user) && preg_match($patterns, $user)) {
-        
-        $_SESSION['Error_username'] = "";
-        
-    }
-    else {
-        $_SESSION['Error_username'] = "Only letters and numbers allowed";
-    }
 
-    if ($user === $acc_user) {
-        $_SESSION['Error_username'] = "Username already exist! Add a different username";
-        
-    }else {
-        $_SESSION['Error_username'] = "";
-    }
-//validate email input fields
-    if (empty($email) ) {
-        $_SESSION['Error_email'] = "Please add Email Address";
-    }else {
-        $_SESSION['Error_email'] = "";
-    }
+        $patterns = "/^[a-zA-Z0-9\,\(\)\n]*$/";
+    if (isset($user) && preg_match($patterns, $user)) {
+            
+            $_SESSION['Error_username'] = "";
+            
+        }
+        else {
+            $_SESSION['Error_username'] = "Only letters and numbers allowed";
+        }
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL) ) {
-        $_SESSION['Error_email'] = "Please add a Valid Email Address";
-        
-    }else {
-        
-        $_SESSION['Error_email'] = "";
+        if ($user === $acc_user && !empty($user)) {
+            $_SESSION['Error_uname'] = "Username already exist! Add a different username";
+            
+        }else {
+            $_SESSION['Error_uname'] = "";
+        }
+    //validate email input fields
+        if (empty($email) ) {
+            $_SESSION['Error_email'] = "Please add Email Address";
+        }else {
+            $_SESSION['Error_email'] = "";
+        }
 
-    }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL) ) {
+            $_SESSION['Error_email'] = "Please add a Valid Email Address";
+            
+        }else {
+            
+            $_SESSION['Error_email'] = "";
 
-    if ($email === $acc_email) {
-        $_SESSION['Error_email'] = "Email already exist! Add a different username";
-        
-    }else {
-        $_SESSION['Error_email'] = "";
-    }
-//validate pass input fields
-    if (empty($pass) ) {
-        $_SESSION['Error_password'] = "Please add password";
-        
-    }else {
-        $_SESSION['Error_password'] = "";
-    }
+        }
 
-    if ($pass === $acc_pass) {
-        $_SESSION['Error_password'] = "Password already exist! Add a different password";
-        
-    }else {
-        $_SESSION['Error_password'] = "";
-    }
+        if ($email === $acc_email && !empty($email)) {
+            $_SESSION['Error_mail'] = "Email already exist! Add a different username";
+            
+        }else {
+            $_SESSION['Error_mail'] = "";
+        }
+    //validate pass input fields
+        if (empty($pass) ) {
+            $_SESSION['Error_password'] = "Please add password";
+            
+        }else {
+            $_SESSION['Error_password'] = "";
+        }
 
+        if ($pass === $acc_pass && !empty($pass)) {
+            $_SESSION['Error_pass'] = "Password already exist! Add a different password";
+            
+        }else {
+            $_SESSION['Error_pass'] = "";
+        }
+} 
     $patterns = "/^[a-zA-Z0-9\,\(\)\n]*$/";
     $number = "/[0-8]/";
     $chars = "/^\w+$/";
@@ -209,9 +218,18 @@ if ($login) {
                             if (!empty($_SESSION['Error_name'])) {
                                 echo "<div class='msg'>".$_SESSION['Error_name']."</div>";
                             }
+                            if (!empty($_SESSION['Error_name'])) {
+                                unset($_SESSION['Error_name']);
+                            }
+
                             if (!empty($_SESSION['Error_fname'])) {
                                 echo "<div class='msg'>".$_SESSION['Error_fname']."</div>";
                             }
+                            if (!empty($_SESSION['Error_fname'])) {
+                                unset($_SESSION['Error_fname']);
+                            }
+
+                           
                       ?>
                 </div>
 
@@ -222,8 +240,15 @@ if ($login) {
                             if (!empty($_SESSION['Error_name'])) {
                                 echo "<div class='msg'>".$_SESSION['Error_name']."</div>";
                             }
+                            if (!empty($_SESSION['Error_name'])) {
+                                unset($_SESSION['Error_name']);
+                            }
+
                             if (!empty($_SESSION['Error_lname'])) {
                                 echo "<div class='msg'>".$_SESSION['Error_lname']."</div>";
+                            }
+                            if (!empty($_SESSION['Error_lname'])) {
+                                unset($_SESSION['Error_lname']);
                             }
                       ?>
                 </div>
@@ -235,6 +260,17 @@ if ($login) {
                             if (!empty($_SESSION['Error_username'])) {
                                 echo "<div class='msg'>".$_SESSION['Error_username']."</div>";
                             }
+                            if (!empty($_SESSION['Error_username'])) {
+                                unset($_SESSION['Error_username']);
+                            }
+
+
+                            if (!empty($_SESSION['Error_uname'])) {
+                                echo "<div class='msg'>".$_SESSION['Error_uname']."</div>";
+                            }
+                            if (!empty($_SESSION['Error_uname'])) {
+                                unset($_SESSION['Error_uname']);
+                            }
                       ?>
                 </div>
 
@@ -245,6 +281,16 @@ if ($login) {
                             if (!empty($_SESSION['Error_password'])) {
                                 echo "<div class='msg'>".$_SESSION['Error_password']."</div>";
                             }
+                            if (!empty($_SESSION['Error_password'])) {
+                                unset($_SESSION['Error_password']);
+                            }
+
+                            if (!empty($_SESSION['Error_pass'])) {
+                                echo "<div class='msg'>".$_SESSION['Error_pass']."</div>";
+                            }
+                            if (!empty($_SESSION['Error_pass'])) {
+                                unset($_SESSION['Error_pass']);
+                            }
                       ?>
                 </div>
 
@@ -254,6 +300,16 @@ if ($login) {
                     <?php
                             if (!empty($_SESSION['Error_email'])) {
                                 echo "<div class='msg'>".$_SESSION['Error_email']."</div>";
+                            }
+                            if (!empty($_SESSION['Error_email'])) {
+                                unset($_SESSION['Error_email']);
+                            }
+
+                            if (!empty($_SESSION['Error_mail'])) {
+                                echo "<div class='msg'>".$_SESSION['Error_mail']."</div>";
+                            }
+                            if (!empty($_SESSION['Error_mail'])) {
+                                unset($_SESSION['Error_mail']);
                             }
                       ?>
                 </div>
