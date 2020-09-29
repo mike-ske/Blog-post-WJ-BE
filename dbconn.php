@@ -18,6 +18,7 @@ if ($conn) {
     die('Failed to connect to database. Check connection'.mysqli_error($conn));
 } 
 
+
 mysqli_free_result($conn);
 
 mysqli_close($conn);
@@ -26,3 +27,4 @@ mysqli_close($conn);
 
 define('MAIL_USERNAME', 'micahalumona@gmail.com');
 define('MAIL_PASSWORD', 'Alumona@123');
+
