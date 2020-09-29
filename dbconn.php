@@ -19,9 +19,8 @@ if ($conn) {
 } 
 
 
-mysqli_free_result($conn);
 
-mysqli_close($conn);
+
 
 // ===== DEFINE PHPMAILER FUNCTIONS ==========
 
