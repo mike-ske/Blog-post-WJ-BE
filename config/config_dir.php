@@ -17,10 +17,18 @@ define('ROOT_FILE', __FILE__);
 
 
 // ========== REMOTE DATABASE CONNECTION =======
+
+
+// define('DB_HOST', 'remotemysql.com');
+// define('DB_PASS', '');
+// define('DB_NAME', 'H4pOhLh2Dl');
+// define('DB_USER', 'H4pOhLh2Dl');
+=======
 define('DB_HOST', 'freedb.tech');
 define('DB_PASS', 'freedbtech_blog');
 define('DB_NAME', 'freedbtech_alumona123');
 define('DB_USER', 'alumona123');
+
 
 
 // FUNCTION TO CONVERT DB DATE TO UNIX DATE AND TIMESTAMP
@@ -30,3 +38,4 @@ function convertDate($date = ''){
    return date('j F Y', $convert_date);
 }
 
+?>

@@ -10,21 +10,6 @@ $pass = "";
 
 
 // ==== CHECK FOR EXISTING ACCOUNTS ======
-$query = "SELECT * FROM admin_account";
-
-//query the database
-$acct_result = mysqli_query($conn, $query) or die('Failed to fetch from database');
-//check if post is uploaded
-
-while ($acct_response = mysqli_fetch_assoc($acct_result)) {
-    $acc_fname = $acct_response['fname'];
-    $acc_lname = $acct_response['lname'];
-    $acc_email = $acct_response['email'];
-    $acc_user = $acct_response['username'];
-    $acc_pass = $acct_response['password'];
-
-   
-} 
 
 
 $login = isset($_POST['signup']);
@@ -40,16 +25,81 @@ if ($login) {
     $user = mysqli_real_escape_string($conn,$_POST['username']);
     $pass = mysqli_real_escape_string($conn,$_POST['password']);
 
-    
 
-// =========VALIDATE INPUTS =========
-while ($acct_response = mysqli_fetch_assoc($acct_result)) {
-    $acc_fname = $acct_response['fname'];
-    $acc_lname = $acct_response['lname'];
-    $acc_email = $acct_response['email'];
-    $acc_user = $acct_response['username'];
-    $acc_pass = $acct_response['password'];
-//validate fisrt name and last name
+// ===================== CHECK FOR EXISTING ACCOUNTS ====================
+
+    $query = "SELECT * FROM admin_account WHERE `username` = '$user' OR `email` = '$email' ";
+
+    // query the database
+    $acct_result = mysqli_query($conn, $query) or die('Failed to fetch from database' . mysqli_error($conn));
+    $num_rows = mysqli_num_rows($acct_result);
+
+        if ($num_rows > 0) 
+        {
+
+    // FETCH THE ROWS FOR EACH TABLE
+            $acct_response = mysqli_fetch_assoc($acct_result);
+            $acc_fname = $acct_response['fname'];
+            $acc_lname = $acct_response['lname'];
+            $acc_email = $acct_response['email'];
+            $acc_user = $acct_response['username'];
+            $acc_pass = $acct_response['password'];
+
+            if ($fname === $acc_fname && !empty($fname)) {
+                
+                $_SESSION['Error_fname'] = "First name already exist! Add a different name";
+            }
+            else
+            {
+                
+                $_SESSION['Error_fname'] = "";
+            }
+
+            if ($lname === $acc_lname && !empty($lname)) 
+            {
+                $_SESSION['Error_lname'] = "Last name already exist! Add a different name";
+               
+            }
+            else 
+            {
+                $_SESSION['Error_lname'] = "";
+            }
+            if ($user === $acc_user && !empty($user)) 
+            {
+                
+                $_SESSION['Error_uname'] = "Username already exist! Add a different username";
+                
+            }
+            else 
+            {
+                $_SESSION['Error_uname'] = "";
+            }
+
+            if ($email === $acc_email && !empty($email)) 
+            {
+                
+                $_SESSION['Error_mail'] = "Email already exist! Add a different username";
+                
+            }
+            else 
+            {
+                $_SESSION['Error_mail'] = "";
+            }
+
+            if ($pass === $acc_pass && !empty($pass)) 
+            {
+                $_SESSION['Error_pass'] = "Password already exist! Add a different password";
+                
+            }
+            else 
+            {
+                $_SESSION['Error_pass'] = "";
+            }
+ 
+        }
+// ===================== END OF CHECKING FOR EXISTING ACCOUNTS ====================
+     
+        // =========VALIDATE INPUTS =========
         if (empty($fname) || empty($lname) ) {
             $_SESSION['Error_name'] = "Please add Fisrt name and Last name";
             
@@ -66,20 +116,8 @@ while ($acct_response = mysqli_fetch_assoc($acct_result)) {
             $_SESSION['Error_name'] = "Only letters allowed";
             
         }
-        if ($fname === $acc_fname) {
-            $_SESSION['Error_fname'] = "First name already exist! Add a different name";
-            
-        }else{
-            $_SESSION['Error_fname'] = "";
-        }
-
-        if ($lname === $acc_lname) {
-            $_SESSION['Error_lname'] = "Last name already exist! Add a different name";
-
-        }else {
-            $_SESSION['Error_lname'] = "";
-        }
-
+    
+      
     //Validate username and password
         if (empty($username) ) {
             $_SESSION['Error_username'] = "Please add Username";
@@ -98,12 +136,7 @@ while ($acct_response = mysqli_fetch_assoc($acct_result)) {
             $_SESSION['Error_username'] = "Only letters and numbers allowed";
         }
 
-        if ($user === $acc_user && !empty($user)) {
-            $_SESSION['Error_uname'] = "Username already exist! Add a different username";
-            
-        }else {
-            $_SESSION['Error_uname'] = "";
-        }
+       
     //validate email input fields
         if (empty($email) ) {
             $_SESSION['Error_email'] = "Please add Email Address";
@@ -111,21 +144,15 @@ while ($acct_response = mysqli_fetch_assoc($acct_result)) {
             $_SESSION['Error_email'] = "";
         }
 
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL) ) {
-            $_SESSION['Error_email'] = "Please add a Valid Email Address";
-            
-        }else {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) ) {
             
             $_SESSION['Error_email'] = "";
-
-        }
-
-        if ($email === $acc_email && !empty($email)) {
-            $_SESSION['Error_mail'] = "Email already exist! Add a different username";
             
         }else {
-            $_SESSION['Error_mail'] = "";
+            
+            $_SESSION['Error_email'] = "Please add a Valid Email Address";
         }
+
     //validate pass input fields
         if (empty($pass) ) {
             $_SESSION['Error_password'] = "Please add password";
@@ -134,13 +161,6 @@ while ($acct_response = mysqli_fetch_assoc($acct_result)) {
             $_SESSION['Error_password'] = "";
         }
 
-        if ($pass === $acc_pass && !empty($pass)) {
-            $_SESSION['Error_pass'] = "Password already exist! Add a different password";
-            
-        }else {
-            $_SESSION['Error_pass'] = "";
-        }
-} 
     $patterns = "/^[a-zA-Z0-9\,\(\)\n]*$/";
     $number = "/[0-8]/";
     $chars = "/^\w+$/";

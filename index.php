@@ -7,22 +7,13 @@ $user_id = isset($_SESSION['userId']);
 
 // ====== GET USER IMAGE FROM ACCOUNT TABLE =====
 
-if (isset($_GET['id'])) {
-
-    $page = $_GET['id'];
-
-}else {
-    $page = 1;
-}
-
-$row_per_page = 8;
-$start_from = ($page-1)*8;
-
 // Write a query statement
-$sql = "SELECT * FROM post ORDER BY id  DESC LIMIT  $start_from,$row_per_page";
+$pg_sql = "SELECT * FROM post ORDER BY id  DESC LIMIT 0,6";
 
 //query the database
-$pg_result = mysqli_query($conn, $sql);
+$pg_result = mysqli_query($conn, $pg_sql);
+// for no post
+
 
 
 ?>
@@ -47,7 +38,7 @@ $pg_result = mysqli_query($conn, $sql);
                         if (isset($_SESSION['must_add']) ) {
                             unset($_SESSION['must_add']);
                         }
-
+                       
                         
                         ?>
 
@@ -89,7 +80,10 @@ $pg_result = mysqli_query($conn, $sql);
                 if (!empty($_SESSION['no_post']) ) {
                     echo "<div style='font-weight:bold;position: absolute;top: 45px;font-size: 20px;font-style: italic;' class='error'>".$_SESSION['no_post']."</div>";
                 }  
-
+                if (isset($_SESSION['no_post'])) {
+                    unset($_SESSION['no_post']);
+                }
+               
                 ?>
         </div>
     
@@ -108,7 +102,8 @@ $pg_result = mysqli_query($conn, $sql);
                 $_SESSION['no_post'] = "";
             }
 
-        while ($row = mysqli_fetch_array($result) ){ 
+        while ($row = mysqli_fetch_array($result) )
+        { 
              $id = $row['id'];
              $title = $row['title'];
              
@@ -151,13 +146,13 @@ $pg_result = mysqli_query($conn, $sql);
 
                         <?php 
                         
-                        foreach ($pg_result as $results) {
+                        foreach ($pg_result as $results) 
+                        {
                             $id = $results['id'];
                             $pg_author = $results['author'];
                                 $pg_body = $results['body'];
                                 $pg_body_len = substr($pg_body,0,100);
                             $pg_image = $results['author_image'];
-                            
                         ?>     
                             <div class="sub_head">
                                 <a href="view_posts.php?id=<?php echo $id?>" style="text-decoration:none;color:#333;">
@@ -171,7 +166,7 @@ $pg_result = mysqli_query($conn, $sql);
                                     </div>
                                 </a>
                             </div>
-                            <?php };?> 
+                        <?php };?> 
                    
                     </div>
                                 

@@ -9,7 +9,7 @@ if ($login) {
     $user = mysqli_real_escape_string($conn,$_POST['username']);
     $pass = mysqli_real_escape_string($conn,$_POST['password']);
 
-    
+ 
 // =========VALIDATE INPUTS =========
     //validate user input fields
     if (empty($username) ) {
@@ -51,63 +51,90 @@ if ($login) {
     else if (strlen($user) > 8) {
         $_SESSION['Error_username'] = "Username must be upto 8-digit";
     }
-    else 
+    else
     {
-        $sql = 'SELECT * FROM admin_account';
+        // ===================== CHECK FOR EXISTING ACCOUNTS ====================
+    $sql = "SELECT * FROM admin_account WHERE `username` = '$user' ";
 
-//query the database
-$result = mysqli_query($conn, $sql);
-
-while ($row = mysqli_fetch_assoc($result)) {
-    $_SESSION['adminId'] = $row['isAdmin'];
-    $_SESSION['first_name'] = $row['fname']." ".$row['lname'];
-    
-    $_SESSION['userId'] = $row['id'];
-    $post_user = $row['username'];
-    $post_pass =  $row['password'];
-
-
-// ======== PAGES ADMIN ================
-     if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adminId'] == 1 ) {
-        $_SESSION['add_post'] = "Add Post";
-        $_SESSION['manage_admin'] = 'Admin management';
-        $_SESSION['Login_message'] = "You are loged in";
-        header("location: ../index.php");
-     }else {
-        unset($_SESSION['Login_message']);
-        $_SESSION['Login_message'] = "";
-        $_SESSION['manage_admin'] = "";
-    }
-    
-// ======== PAGES USER ================
-if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adminId'] == 0 ) {
-    $_SESSION['manage_user'] = 'User management';
-    $_SESSION['Login_message'] = "You are loged in";
-    $_SESSION['Logout'] = "Logout"; 
-    $_SESSION['add_post'] = "Add Post";
-    header("location: ../index.php");
+    //query the database
+    $result = mysqli_query($conn, $sql);
+    $num_rows = mysqli_num_rows($result);
    
- }else {
-    $_SESSION['Login_message'] = "";
-    $_SESSION['manage_user'] = "";
-    $_SESSION['add_post'] = "";
-    $_SESSION['service'] = "Service";
-    
-}
-    
-     if ($user !== $post_user && $pass !== $post_pass) {
+    if ($num_rows < 20) 
+    {
 
-        $_SESSION['Error_message'] = "Invalid Username or Password. Type a valid password or username";
- 
-     }else {
-        $_SESSION['Error_message'] = "";
-     }
-}
+        $row = mysqli_fetch_assoc($result);
+        
+        $_SESSION['adminId'] = $row['isAdmin'];
+        $_SESSION['first_name'] = $row['fname']." ".$row['lname'];
+        $_SESSION['userId'] = $row['id'];
+
+        $post_user = $row['username'];
+        $post_pass =  $row['password'];
+       
+        if ($user !== $post_user) 
+        {
+            $_SESSION['Error_message'] = "Invalid Username or Password. Type a valid password or username";
+            $_SESSION['Error_username'] = "Invalid Username";
+        }
+        else 
+        {
+            $_SESSION['Error_username'] = "";
+            $_SESSION['Error_message'] = "";
+        }
+        
+        if (password_hash($pass, PASSWORD_DEFAULT) !== $post_pass) 
+        {
+            $_SESSION['Error_password'] = "Invalid Password";
+        }
+        else 
+        {
+            $_SESSION['Error_password'] = "";
+        }
+
+        // ======== PAGES ADMIN ================
+        if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adminId'] == 1 ) 
+        {
+            $_SESSION['add_post'] = "Add Post";
+            $_SESSION['manage_admin'] = 'Admin management';
+            $_SESSION['Login_message'] = "You are loged in";
+            header("location: ../index.php");
+        }else 
+        {
+            unset($_SESSION['Login_message']);
+            $_SESSION['Login_message'] = "";
+            $_SESSION['manage_admin'] = "";
+            
+        }
+        
+    // ======== PAGES USER ================
+        if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adminId'] == 0 ) 
+        {
     
+        $_SESSION['manage_user'] = 'User management';
+        $_SESSION['Login_message'] = "You are loged in";
+        $_SESSION['Logout'] = "Logout"; 
+        $_SESSION['add_post'] = "Add Post";
+        header("location: ../index.php");
+        }
+        else 
+        {
+        $_SESSION['Login_message'] = "";
+        $_SESSION['manage_user'] = "";
+        $_SESSION['add_post'] = "";
+        $_SESSION['service'] = "Service";
+        
+        }
+     
+    }
+
+    }
+   
 }
+
 // =========END OF VALIDATE INPUTS =========
 
-}
+
 
 
 ?>
@@ -129,13 +156,22 @@ if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adm
                           if (!empty($_SESSION['Account_message']) ) {
                             echo "<div class='msg_green' id='msg_green'><div id='exit'>".$_SESSION['Account_message']."</div></div>";
                         }
+                        if (!empty($_SESSION['Account_message'])) {
+                            unset($_SESSION['Account_message']);
+                        }
 
                         if (!empty($_SESSION['Success_message']) ) {
                             echo "<div class='msg_green' id='msg_green'>".$_SESSION['Success_message']."</div>";
                         }    
+                        if (!empty($_SESSION['Success_message'])) {
+                            unset($_SESSION['Success_message']);
+                        }
 
                         if (!empty($_SESSION['Error_message']) ) {
                             echo "<div class='msg' id='msg'>".$_SESSION['Error_message']."</div>";
+                        }
+                        if (!empty($_SESSION['Error_message'])) {
+                            unset($_SESSION['Error_message']);
                         }
                         ?>
                    
@@ -150,6 +186,9 @@ if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adm
                             if (!empty($_SESSION['Error_username'])) {
                                 echo "<div class='msg'>".$_SESSION['Error_username']."</div>";
                             }
+                            if (!empty($_SESSION['Error_username'])) {
+                                unset($_SESSION['Error_username']);
+                            }
                       ?>
                 </div>
 
@@ -159,6 +198,9 @@ if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adm
                     <?php
                             if (!empty($_SESSION['Error_password'])) {
                                 echo "<div class='msg'>".$_SESSION['Error_password']."</div>";
+                            }
+                            if (!empty($_SESSION['Error_password'])) {
+                                unset($_SESSION['Error_password']);
                             }
                       ?>
                 </div>

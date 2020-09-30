@@ -3,10 +3,6 @@
 
 <?php
 
-$user_id = $_SESSION['userId'];
-
-
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -18,28 +14,6 @@ use PHPMailer\PHPMailer\Exception;
 // Load Composer's autoloader
 
 require '../vendor/autoload.php';
-
- // ===== GET THE USER EMAIL FROM Database ======
-
-$qry = "SELECT email, username FROM admin_account WHERE 1";
-//query the database
-$acct_result = mysqli_query($conn, $qry) or die('Failed to fetch from database');
-
-   while ($acct_response = mysqli_fetch_array($acct_result)) 
-   {
-      $_SESSION['email'] = $acct_response['email'];
-      $_SESSION['user'] = $acct_response['username'];
-   }
-
-// ======== GET USERS NAMES ==========
-$sql = "SELECT * FROM admin_account WHERE id = ". $user_id;
-$query = mysqli_query($conn, $sql) or die('Failed to fetch from database');
- $result= mysqli_fetch_assoc($query);
- $email1 = $result['email'];
-    $fname = $result['fname'];
-    $lname = $result['lname'];
-$full_name = $fname.' '.$lname;
-
 
 $send = isset($_POST['send']);
 
@@ -58,59 +32,80 @@ if ($send)
         $_SESSION['Empty_email'] = "";
         
     }
-//validate email input fields
-    
+
     $encrypt = password_hash($email, PASSWORD_DEFAULT);
-  
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($email)) {
+    
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) && isset($email)) {
         
         $_SESSION['Error_email'] = "Please add a Valid Email Address"; 
+        
     }
-    else if (filter_var($email, FILTER_VALIDATE_EMAIL)) 
-    {   
-        $_SESSION['Error_email'] = "";
-    }    
-   
-        // ========== USING PHP MAILER TO SEND EMAILS ==================
-       
-        // Instantiation and passing `true` enables exceptions
-            $mail = new PHPMailer();
-
-            //Server settings
-            // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-            $mail->isSMTP();                                            // Send using SMTP
-            $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = MAIL_USERNAME;                     // SMTP username
-            $mail->Password   = MAIL_PASSWORD;                               // SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-
-            //Recipients
-            $mail->setFrom('micahalumona@gmail.com', 'Readit Blog');
-            $mail->addAddress($email, $full_name);     // Add a recipient
-            $mail->addAddress($email);               // Name is optional
-
-            // Content
-            $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Password Reset From Readit Blog';
-            $mail->Body    = '<b>Reply to Reset Password</b> <br>
-            Dear <b>'.$full_name.'</b> We have recieved your request to reset your password from 
-            <b>Readit Blog</b> site and we are will reply you on your request to recover your password.<br><br>
-            Please click on the link as you"ll be redirected to a page where <br>
-            you can reset your password. click link <a href="pass_verify.php" style="text-decoration:none;list-style:none;">'.$encrypt.'</a> to reset password.';
-       
-            $mail->send();
-
-            if ($mail->send()) {
-                $_SESSION['Success_message'] = 'Message has been sent! Check your email for confirmation';
-
-            }else {
-                $_SESSION['Error_message'] =  "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+//validate email input fields
+    else
+    {  
+        // ================ CHECK IF EMAIL EXIST =================
+        $qry = "SELECT * FROM admin_account WHERE `email` = '$email' ";
+        //query the database
+        $acct_result = mysqli_query($conn, $qry) or die('Failed to fetch from database'.mysqli_error($conn));
+        $num_row = mysqli_num_rows($acct_result);
+        
+            if ($num_row < 20) 
+            {
+                $result = mysqli_fetch_assoc($acct_result );
+                $verify_email = $result['email'];
+                $fname = $result['fname'];
+                $lname = $result['lname'];
+            $full_name = $fname.' '.$lname;
+        
+                if ($email != $verify_email) 
+                {  
+            
+                    $_SESSION['Error_email'] = "Email not registered on our system"; 
                 
+                }
+                else
+                {
+                        // ========== USING PHP MAILER TO SEND EMAILS ==================
+                
+                    // Instantiation and passing `true` enables exceptions
+                        $mail = new PHPMailer();
+
+                        //Server settings
+                        // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+                        $mail->isSMTP();                                            // Send using SMTP
+                        $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                        $mail->Username   = MAIL_USERNAME;                     // SMTP username
+                        $mail->Password   = MAIL_PASSWORD;                               // SMTP password
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                        $mail->Port       = 465;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+                        //Recipients
+                        $mail->setFrom('micahalumona@gmail.com', 'Readit Blog');
+                        $mail->addAddress($email, $full_name);     // Add a recipient
+                        $mail->addAddress($email);               // Name is optional
+
+                        // Content
+                        $mail->isHTML(true);                                  // Set email format to HTML
+                        $mail->Subject = 'Password Reset From Readit Blog';
+                        $mail->Body    = '<b>Reply to Reset Password</b> <br>
+                        Dear <b>'.$full_name.'</b> We have recieved your request to reset your password from 
+                        <b>Readit Blog</b> site and we are will reply you on your request to recover your password.<br><br>
+                        Please click on the link as you"ll be redirected to a page where <br>
+                        you can reset your password. click link <a href="http://localhost/POST_APP_BE/admin/reset_password.php?email='.$email.'&action=valid" style="text-decoration:none;list-style:none;">'.$encrypt.'</a> to reset password.';
+                
+                        $mail->send();
+
+                        if ($mail->send()) {
+                            $_SESSION['Success_message'] = 'Message has been sent! Check your email for confirmation';
+
+                        }else {
+                            $_SESSION['Error_message'] =  "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                            
+                        }
+                }
             }
-      
- 
+    }   
 // ========== END OF PHP MAILER TO SEND EMAILS =================
 }
   
@@ -170,13 +165,6 @@ if ($send)
                             if (!empty($_SESSION['Error_email'])) {
                                 unset($_SESSION['Error_email']);
                             }
-                            
-                            if (!empty($_SESSION['Reg_email'])) {
-                                echo "<div class='msg'>".$_SESSION['Reg_email']."</div>";
-                            }
-                            if (!empty($_SESSION['Reg_email'])) {
-                                unset($_SESSION['Reg_email']);
-                            }
 
                             if (!empty($_SESSION['Empty_email']) ) 
                             {
@@ -185,8 +173,7 @@ if ($send)
                             if (!empty($_SESSION['Empty_email'])) {
                                 unset($_SESSION['Empty_email']);
                             }
-
-                            
+                         
                       ?>
                 </div>
 
@@ -197,7 +184,7 @@ if ($send)
                 <div class="submit">
 
                     <div class="group">
-                        <input type="submit" value="Send" name="send">
+                        <input type="submit" value="Email Password" name="send">
                     </div>
 
                 </div>
