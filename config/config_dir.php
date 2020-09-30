@@ -8,11 +8,14 @@ define('ADMIN_DIR', 'admin/manage_admin/');
 define('ROOT_FILE', __FILE__);
 
 
-// ========== LOCAL DATABASE CONNECTION =======
+
+// // ========== LOCAL DATABASE CONNECTION =======
+
 // define('DB_HOST', 'localhost');
 // define('DB_PASS', '');
 // define('DB_NAME', 'blog');
 // define('DB_USER', 'root');
+
 
 // ========== REMOTE DATABASE CONNECTION =======
 define('DB_HOST', 'freedb.tech');
@@ -25,6 +28,9 @@ define('DB_USER', 'freedbtech_alumona123');
 // define('DB_PASS', '');
 // define('DB_NAME', 'H4pOhLh2Dl');
 // define('DB_USER', 'H4pOhLh2Dl');
+
+
+
 // FUNCTION TO CONVERT DB DATE TO UNIX DATE AND TIMESTAMP
 
 function convertDate($date = ''){

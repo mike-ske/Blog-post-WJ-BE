@@ -19,8 +19,8 @@ if ($conn) {
 } 
 
 
-
 // ===== DEFINE PHPMAILER FUNCTIONS ==========
 
 define('MAIL_USERNAME', 'micahalumona@gmail.com');
 define('MAIL_PASSWORD', 'Alumona@123');
+
