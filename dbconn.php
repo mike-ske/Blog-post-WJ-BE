@@ -18,9 +18,7 @@ if ($conn) {
     die('Failed to connect to database. Check connection'.mysqli_error($conn));
 } 
 
-mysqli_free_result($conn);
 
-mysqli_close($conn);
 
 // ===== DEFINE PHPMAILER FUNCTIONS ==========
 

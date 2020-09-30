@@ -35,7 +35,7 @@ $users_id = $qr_response['userId'];
        
        if ($results == NULL) 
         {
-            echo 'No post';
+            $_SESSION['noPost'] = "No Post in Database Check Connection";
         }
             $num_rows = mysqli_num_rows($results);
             if ($num_rows <= 0) 

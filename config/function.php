@@ -146,10 +146,8 @@ if ($_FILES) {
         if (!empty($_POST['title'])  || !empty($_POST['author'])  || !empty($_POST['body']) || !empty($image) || !empty($user_image)) 
         {
             $_SESSION['Success_message'] = "Success! New Post Added";
-            
-            
         }
-        if (empty($_POST['title'])  || empty($_POST['author'])  || empty($_POST['body']) || empty($image) || empty($user_image)) {
+        if (empty($_POST['title'])  || empty($_POST['author'])  || empty($_POST['body']) || !empty($image) || !empty($user_image)) {
             $_SESSION['Error_message'] = "Failed to add Post! Check all empty fields";
             
         }else{

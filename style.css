@@ -73,6 +73,7 @@ body {
     border-radius: 4px;
     background: rgb(179, 245, 179);
     color: rgb(14, 156, 9);
+    
 }
 
 
@@ -510,20 +511,10 @@ input[type=reset]:hover{
 
 /*Styling for Sub Post*/
 
-.sub_main {
-    width: 1024px;
-    height: auto;
-    position: relative;
-    top:10px;
-    margin: auto;
-    margin-bottom: 200px;
-}
 
-
-    
 .sub_head {
     width: 100%;
-    height: auto;
+    height: 90px;
     display: flex;
     box-shadow: 0px 0px 10px #ccc;
     align-items: center;
@@ -531,16 +522,7 @@ input[type=reset]:hover{
     border-radius: 4px;
     padding: 10px;
 }
-.sub_head_2{
-    width: auto;
-    height: auto;
-    margin: auto;
-    display: flex;
-    box-shadow: 0px 0px 10px #ccc;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-}
+
 .sub_main {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -553,8 +535,16 @@ input[type=reset]:hover{
     left: 0px;
     padding: 0px;
     padding: 7px;
+    width: 1024px;
+    height: 120px;
+    position: relative;
+    top:10px;
+    margin: auto;
+    margin-bottom: 300px;
 }
-
+/* .sub_main {
+   
+} */
 .sub_image {
     display: grid;
     grid-template-columns:50px 1fr;
