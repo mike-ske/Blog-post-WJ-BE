@@ -11,17 +11,11 @@ define('ROOT_FILE', __FILE__);
 
 // // ========== LOCAL DATABASE CONNECTION =======
 
-// define('DB_HOST', 'localhost');
-// define('DB_PASS', '');
-// define('DB_NAME', 'blog');
-// define('DB_USER', 'root');
+define('DB_HOST', 'localhost');
+define('DB_PASS', '');
+define('DB_NAME', 'blog');
+define('DB_USER', 'root');
 
-
-// ========== REMOTE DATABASE CONNECTION =======
-define('DB_HOST', 'freedb.tech');
-define('DB_PASS', 'alumona123');
-define('DB_NAME', 'freedbtech_blog');
-define('DB_USER', 'freedbtech_alumona123');
 
 
 // define('DB_HOST', 'remotemysql.com');
