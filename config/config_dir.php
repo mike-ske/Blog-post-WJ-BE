@@ -11,17 +11,17 @@ define('ROOT_FILE', __FILE__);
 
 // // ========== LOCAL DATABASE CONNECTION =======
 
-define('DB_HOST', 'localhost');
-define('DB_PASS', '');
-define('DB_NAME', 'blog');
-define('DB_USER', 'root');
-
-
-
-// define('DB_HOST', 'remotemysql.com');
+// define('DB_HOST', 'localhost');
 // define('DB_PASS', '');
-// define('DB_NAME', 'H4pOhLh2Dl');
-// define('DB_USER', 'H4pOhLh2Dl');
+// define('DB_NAME', 'blog');
+// define('DB_USER', 'root');
+
+
+
+define('DB_HOST', 'server272');
+define('DB_PASS', 'alumona123');
+define('DB_NAME', 'thinuuwc_blog');
+define('DB_USER', 'thinuuwc_alumona20');
 
 
 
