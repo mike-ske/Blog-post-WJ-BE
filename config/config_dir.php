@@ -18,10 +18,10 @@ define('ROOT_FILE', __FILE__);
 
 
 
-define('DB_HOST', 'server272');
-define('DB_PASS', 'alumona123');
-define('DB_NAME', 'thinuuwc_blog');
-define('DB_USER', 'thinuuwc_alumona20');
+define('DB_HOST', 'sm9j2j5q6c8bpgyq.cbetxkdyhwsb.us-east-1.rds.amazonaws.com');
+define('DB_PASS', 'oz1mn2yp3lk6bm8r');
+define('DB_NAME', 'uhapfhnh4ybf0fk5');
+define('DB_USER', 'jxu42l3cwykdtn85');
 
 
 
