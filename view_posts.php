@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                  <div class="buttons">
                         <h3 class="read_more view_read_more">
                                 <a href="index.php">Back</a>
-                        </h3>                
+
                 </div>
                 <!-- End of Hidden input -->
                 </div>

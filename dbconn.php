@@ -19,8 +19,8 @@ if ($conn) {
 } 
 
 
-
 // ===== DEFINE PHPMAILER FUNCTIONS ==========
+
 
 define('MAIL_USERNAME', 'thinksoftcreative@gmail.com');
 define('MAIL_PASSWORD', 'thinksoft2020');
