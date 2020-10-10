@@ -5,6 +5,7 @@
 .sub_menu_items{
     list-style: none;
 }
+  
 .hover_logout:hover .sub_menu_items{
     display: block;
     width: auto;

@@ -59,11 +59,34 @@ $users_id = $qr_response['userId'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Post</title>
     <script src="m_layout/manage.js"></script>
-    <link rel="stylesheet" href="m_layouts/manage.css">
+    <link rel="stylesheet" href="../m_layouts/manage.css">
  
 </head>
 <body>
+   
+        <header class="admin_header ">
+            <nav class="admin_nav">
+                <div class="logo admin_logo">
+                    <h1><a href="posts.php" style="color:#fff;text-decoration:none">Read<span class="logo-color">it.</span></a></h1>
+                </div>
 
+                <div class="admin_menu">
+                    <ul class="admin_list">
+                        <li class="admin_items"><a href="#" class="admin_link">Public</a></li>
+                        <li class="admin_item2"><a href="#" class="admin_link">The Admin Name here&NonBreakingSpace; &RightAngleBracket;</a>
+                            <ul class="sub_menu">
+                                <li class="admin_item Sh"><a href="#" class="admin_link">Log Out</a></li>
+                            </ul>
+                        </li>                    
+             
+                    </ul>
+                </div>
+
+                <!-- <div class="bar_icon">
+                    <img src="../img/align-to-right.png">
+                </div> -->
+            </nav>
+        </header>
 
 
             <div class="main_post view_post">
@@ -93,44 +116,56 @@ $users_id = $qr_response['userId'];
                 if (isset($_SESSION['not_admin']) ) {
                     unset($_SESSION['not_admin']);
                 }
+                if (!empty($_SESSION['welcome']) ) {
+                    echo "<div id='del'>".$_SESSION['welcome']."</div>";
+                }
+                if (isset($_SESSION['welcome']) ) {
+                    unset($_SESSION['welcome']);
+                }
                 ?>
 
-            <?php  while ($response = mysqli_fetch_assoc( $results )) {?>
+            
                 
-              <div class="heading view_heading">
+              <div class="heading view_heading view_post">
                         
-                        <h1 class="view_h1"><?php echo $response['title']; ?></h1><hr>
+                 <?php  while ($response = mysqli_fetch_assoc( $results )) {?>
                     <div class="side_image view_side_image">
-                        
-                        <h3 class="author view_author"><?php echo $response['author'];?></h3>
-                        <h4 class="date view_date">Date Created: <?php echo convertDate($response['date_created']);?></h4>
-                        <p class="view_body">Username: <?php echo $response['username']?></p>
-                        <p class="view_body">Last Updated: <?php echo convertDate($response['date_updated'])?></p>
+                      
+                        <div class="main">
+                                <h1 class="view_h1"><?php echo $response['title']; ?></h1><hr>
+                                <h3 class="author view_author"><?php echo $response['author'];?></h3>
+                                <h4 class="date view_date">Date Created: <?php echo convertDate($response['date_created']);?></h4>
+                                <p class="view_body">Username: <?php echo $response['username']?></p>
+                                <p class="view_body">Last Updated: <?php echo convertDate($response['date_updated'])?></p>
+                                
+                        </div>
+
+                        <div class="buttons">
+                            <h3 class="read_more view_read_more">
+                                    <a href="../../index.php">Back</a>
+                            </h3>
+                            <h3 class="read_more view_read_more">
+                                    <a href="update_post.php?id=<?php echo $response['id'];?>">Edit Post</a>
+                            </h3>
+
+                            <!-- Create an hidden form to catch the present ID of this form -->
+                            
+                                <form action="delete_post.php?id=<?php echo $users_id?>" method="post" class="view_read_more" >
+                                    
+                                    <input type="hidden" name="delete_id" value="<?php echo $response['id'];?>" >
+                                        <button type="submit" name="delete" class="delete" >Delete</button>
+    
+                                </form>
+                            
+                        </div>
                     </div>
                     
-                        
+                <?php }?>   
                        
-                 <div class="buttons">
-                        <h3 class="read_more view_read_more">
-                                <a href="../../index.php">Back</a>
-                        </h3>
-                        <h3 class="read_more view_read_more">
-                                <a href="update_post.php?id=<?php echo $response['id'];?>">Edit Post</a>
-                        </h3>
-
-                           <!-- Create an hidden form to catch the present ID of this form -->
-                        
-                            <form action="delete_post.php?id=<?php echo $users_id?>" method="post" class="view_read_more" >
-                                
-                                <input type="hidden" name="delete_id" value="<?php echo $response['id'];?>" >
-                                    <button type="submit" name="delete" class=" delete" >Delete</button>
-   
-                            </form>
-                 </div>
-                 <?php }?>
+                
                 <!-- End of Hidden input -->
                 </div>
-                        <div class="controls">
+                        <div class="controls view_post heading">
                             <ul class="main_ctrl">
                                 <li class="ctrl_list">Add post
                                     <ul class="sub_ctrl">
@@ -182,7 +217,7 @@ $users_id = $qr_response['userId'];
 
                                 </div>
                                 <div class="copyright">
-
+                                     <h6 class="h6">  Copyright  &copy; 2020 Created by Alumona Micah DEV <span class="cast">@Think Soft</span></h6>
                                 </div>
                             </div>
                         </footer>

@@ -143,11 +143,7 @@ if ($_FILES) {
     }
 // =====================END OF PASSPORT ===========
     
-        if (!empty($_POST['title'])  || !empty($_POST['author'])  || !empty($_POST['body']) || !empty($image) || !empty($user_image)) 
-        {
-            $_SESSION['Success_message'] = "Success! New Post Added";
-        }
-        if (empty($_POST['title'])  || empty($_POST['author'])  || empty($_POST['body']) || !empty($image) || !empty($user_image)) {
+        if (empty($_POST['title'])  || empty($_POST['author'])  || empty($_POST['body']) ) {
             $_SESSION['Error_message'] = "Failed to add Post! Check all empty fields";
             
         }else{
@@ -155,18 +151,32 @@ if ($_FILES) {
             $_SESSION['Error_message'] = "";
         }
 
-        if ($user_image_upload == true && $image_upload == true) {
-        
-        // Write a query statement 
-            $query = "INSERT INTO post(`title`, `author`, `body`, `image`, `author_image`, `userId`) VALUES ('$title', '$author', '$body', '$image_dir', '$user_image_dir', '$user_id')";
+        if (!empty($_POST['title'])  || !empty($_POST['author'])  || !empty($_POST['body']) ) 
+        {
+            $_SESSION['Success_message'] = "Success! New Post Added";
 
-            //query the database
-            $result = mysqli_query($conn, $query) or die('Failed to insert to Database! '. mysqli_error($conn));
+                if ($user_image_upload == true && $image_upload == true) 
+                {
         
-        }else {
-
-            $_SESSION['Error_message'] = "Failed to insert image. Check all fields to Add images";
+                // Write a query statement 
+                    $query = "INSERT INTO post(`title`, `author`, `body`, `image`, `author_image`, `userId`) VALUES ('$title', '$author', '$body', '$image_dir', '$user_image_dir', '$user_id')";
+        
+                    //query the database
+                    $result = mysqli_query($conn, $query) or die('Failed to insert to Database! '. mysqli_error($conn));
+                
+                }
+                else 
+                {
+        
+                    $_SESSION['Error_message'] = "Failed to insert image. Check all fields to Add images";
+                }
+            
         }
+        else
+        {
+            $_SESSION['Error_message'] = "Failed to add Post! Check all empty fields";
+        }
+     
 
 
 
