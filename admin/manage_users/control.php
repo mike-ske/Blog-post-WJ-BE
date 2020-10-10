@@ -8,6 +8,7 @@ $user_id = $_SESSION['userId'];
     if (isset($user_id) && $_GET['userId'] !== 1 ) 
     { 
         $_SESSION['must_add']  = "";
+        $_SESSION['welcome']  = "<script>alert('Welcome to Usermanagement All post can only be viewed by you. Are you sure you want to VIEW POST!')</script>";
         header("Location: view_post.php?userId={$user_id}");
        
 

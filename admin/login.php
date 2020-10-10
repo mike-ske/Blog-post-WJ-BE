@@ -8,8 +8,8 @@ if ($login) {
     
     $user = mysqli_real_escape_string($conn,$_POST['username']);
     $pass = mysqli_real_escape_string($conn,$_POST['password']);
-
- 
+    
+    
 // =========VALIDATE INPUTS =========
     //validate user input fields
     if (empty($username) ) {
@@ -34,7 +34,7 @@ if ($login) {
     }else {
         $_SESSION['Error_password'] = "";
     }
-
+    
     $patterns = "/^[a-zA-Z0-9\,\(\)\n]*$/";
     $number = "/[0-8]/";
     $chars = "/^\w+$/";
@@ -62,8 +62,8 @@ if ($login) {
    
     if ($num_rows < 20) 
     {
-
         $row = mysqli_fetch_assoc($result);
+        
         
         $_SESSION['adminId'] = $row['isAdmin'];
         $_SESSION['first_name'] = $row['fname']." ".$row['lname'];
@@ -71,20 +71,23 @@ if ($login) {
 
         $post_user = $row['username'];
         $post_pass =  $row['password'];
-       
-        if ($user !== $post_user) 
+     
+        
+        if ($user != $post_user) 
         {
+           
             $_SESSION['Error_message'] = "Invalid Username or Password. Type a valid password or username";
             $_SESSION['Error_username'] = "Invalid Username";
         }
         else 
-        {
+        { 
             $_SESSION['Error_username'] = "";
             $_SESSION['Error_message'] = "";
         }
         
-        if (password_hash($pass, PASSWORD_DEFAULT) !== $post_pass) 
+        if (!password_verify($pass, $post_pass)) 
         {
+            $_SESSION['Error_message'] = "Invalid Password. Type a valid password ";
             $_SESSION['Error_password'] = "Invalid Password";
         }
         else 
@@ -106,9 +109,10 @@ if ($login) {
             $_SESSION['manage_admin'] = "";
             
         }
-        
+        // password_verify($pass, $post_pass)
+       
     // ======== PAGES USER ================
-        if ($user === $post_user && password_verify($pass, $post_pass) && $_SESSION['adminId'] == 0 ) 
+        if ($user === $post_user &&  password_verify($pass, $post_pass) && $_SESSION['adminId'] == 0 ) 
         {
     
         $_SESSION['manage_user'] = 'User management';
