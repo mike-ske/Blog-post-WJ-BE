@@ -84,18 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <h3 class="read_more view_read_more">
                                 <a href="index.php">Back</a>
                         </h3>
-                        <h3 class="read_more view_read_more">
-                                <a href="edit_post.php?id=<?php echo $response['id'];?>">Edit Post</a>
-                        </h3>
-
-                           <!-- Create an hidden form to catch the present ID of this form -->
-                        
-                            <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" class="view_read_more" >
-                                
-                                <input type="hidden" name="delete_id" value="<?php echo $response['id'];?>" >
-                                    <button type="submit" name="delete" class=" delete" >Delete</button>
-   
-                            </form>
                 </div>
                 <!-- End of Hidden input -->
                 </div>
