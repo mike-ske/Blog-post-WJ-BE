@@ -157,12 +157,16 @@
 .grid_logo {
   width: 750px;
   height: 519px;
-  position: absolute;
+  position: relative;
   right: 10px;
   background-position: center;
   background-size: 100%;
   background-image:url(img/02.png);
   background-repeat: no-repeat;
+}
+
+.grid_logo {
+overflow: hidden;
 }
 
 .grid .h1, .p {
