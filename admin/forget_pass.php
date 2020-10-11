@@ -92,7 +92,7 @@ if ($send)
                         Dear <b>'.$full_name.'</b> We have recieved your request to reset your password from 
                         <b>Readit Blog</b> site and we are will reply you on your request to recover your password.<br><br>
                         Please click on the link as you"ll be redirected to a page where <br>
-                        you can reset your password. click link <a href="http://localhost/POST_APP_BE/admin/reset_password.php?email='.$email.'&action=valid" style="text-decoration:none;list-style:none;">'.$encrypt.'</a> to reset password.';
+                        you can reset your password. click link <a href="http://micahblog.herokuapp.com/admin/reset_password.php?email='.$email.'&action=valid" style="text-decoration:none;list-style:none;">'.$encrypt.'</a> to reset password.';
                 
                         $mail->send();
 
